@@ -1,0 +1,3 @@
+[submodule "share/wisp"]
+	path = share/wisp
+	url = https://github.com/wyvernbw/wisp

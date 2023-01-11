@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Node",
+"class": &"Wisp",
+"language": &"GDScript",
+"path": "res://share/wisp/wisp.gd"
+}]
+_global_script_class_icons={
+"Wisp": ""
+}
+
 [application]
 
 config/name="Hellhop"
