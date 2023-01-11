@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://cc20esdumbd4f"]
+
+[ext_resource type="PackedScene" uid="uid://dgkptfe55p6oq" path="res://characters/player/player.tscn" id="1_oj2sh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7blh6"]
+sky_top_color = Color(0.713726, 0.203922, 0.596078, 1)
+sky_horizon_color = Color(0.692157, 0.560784, 0.655882, 1)
+ground_bottom_color = Color(0.054902, 0.0392157, 0.027451, 1)
+ground_horizon_color = Color(0.692157, 0.560784, 0.655882, 1)
+
+[sub_resource type="Sky" id="Sky_w0oml"]
+sky_material = SubResource("ProceduralSkyMaterial_7blh6")
+
+[sub_resource type="Environment" id="Environment_6f76o"]
+background_mode = 2
+sky = SubResource("Sky_w0oml")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgol7"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_akob2"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6f76o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.259014, 0.427682, 0, 0.855364, 0.518027, -0.5, 0.448625, -0.740767, 0, 0, 0)
+light_color = Color(0.988235, 0.792157, 0.92549, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Platform" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(13.0429, 0, 0, 0, 0.283846, 0, 0, 0, 13.0429, 0, 0, 0)
+mesh = SubResource("BoxMesh_lgol7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+transform = Transform3D(13.0429, 0, 0, 0, 0.283846, 0, 0, 0, 13.0429, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_akob2")
+
+[node name="Player" parent="." instance=ExtResource("1_oj2sh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35318, 0)
