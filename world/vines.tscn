@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwxaf6e81e8y1"]
+
+[ext_resource type="Texture2D" uid="uid://g6p524skhch3" path="res://world/vines.png" id="1_ou7ha"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_070qa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwwf7"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_ou7ha")
+texture_filter = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_070qa")
+surface_material_override/0 = SubResource("StandardMaterial3D_xwwf7")

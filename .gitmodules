@@ -1,3 +1,6 @@
 [submodule "share/wisp"]
 	path = share/wisp
 	url = https://github.com/wyvernbw/wisp
+[submodule "addons/godot-multimesh-scatter"]
+	path = addons/godot-multimesh-scatter
+	url = https://github.com/arcaneenergy/godot-multimesh-scatter

@@ -1,6 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgkptfe55p6oq"]
+[gd_scene load_steps=38 format=3 uid="uid://dgkptfe55p6oq"]
 
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_js1hu"]
+[ext_resource type="Texture2D" uid="uid://cshh1wdqdft66" path="res://share/effects/frame.png" id="2_h5tyt"]
+[ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_h6wsm"]
+[ext_resource type="PackedScene" uid="uid://b3yk22dbgx4jl" path="res://characters/player/screen_shake.tscn" id="2_lq0ca"]
+[ext_resource type="PackedScene" uid="uid://dfrt3nqfiu5hk" path="res://share/effects/wind_mesh.tscn" id="3_4fdej"]
+[ext_resource type="Shader" path="res://share/effects/wind.gdshader" id="4_adynf"]
+[ext_resource type="Texture2D" uid="uid://na7u6fs21j75" path="res://share/effects/cursor.png" id="5_g36a7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jfild"]
 
@@ -20,6 +26,34 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.25, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6mgnx"]
+resource_name = "crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0, 1.25, 0), Vector3(0, -0.75, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_tbwdd"]
@@ -70,13 +104,139 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, -0.523599)]
 }
 
+[sub_resource type="Animation" id="Animation_v5edw"]
+resource_name = "stand_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector3(0, -0.75, 0), Vector3(0, 1.25, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k3cqx"]
 _data = {
 "RESET": SubResource("Animation_va5ut"),
+"crouch": SubResource("Animation_6mgnx"),
 "go_back": SubResource("Animation_tbwdd"),
 "lean_left": SubResource("Animation_m1tnk"),
-"lean_right": SubResource("Animation_s0hor")
+"lean_right": SubResource("Animation_s0hor"),
+"stand_up": SubResource("Animation_v5edw")
 }
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hegt8"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_h6wsm")
+texture_filter = 0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ng4wl"]
+direction = Vector3(-1, 1, 0)
+flatness = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_max = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ewjkb"]
+lightmap_size_hint = Vector2i(4, 4)
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2wudj"]
+direction = Vector3(1, 1, 0)
+flatness = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eygrp"]
+noise_type = 2
+seed = 5
+frequency = 0.057
+cellular_jitter = 0.5
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0te8v"]
+noise = SubResource("FastNoiseLite_eygrp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttgml"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_adynf")
+shader_parameter/threshold = 0.52
+shader_parameter/threshold_min = 0.52
+shader_parameter/speed = 0.05
+shader_parameter/tex = SubResource("NoiseTexture2D_0te8v")
+
+[sub_resource type="SphereMesh" id="SphereMesh_getxm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmnpf"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0.862745, 0.407843, 0.345098, 0.14902)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0not"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0.862745, 0.407843, 0.345098, 0.14902)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmqkj"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0.862745, 0.407843, 0.345098, 0.14902)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0iaf"]
+transparency = 1
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0.862745, 0.407843, 0.345098, 0.313726)
+
+[sub_resource type="Gradient" id="Gradient_oiq4a"]
+colors = PackedColorArray(0.203922, 0.141176, 0.176471, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cum1o"]
+gradient = SubResource("Gradient_oiq4a")
+
+[sub_resource type="Environment" id="Environment_48gel"]
+background_mode = 3
+adjustment_enabled = true
+adjustment_color_correction = SubResource("GradientTexture1D_cum1o")
+
+[sub_resource type="World3D" id="World3D_125ps"]
+environment = SubResource("Environment_48gel")
+
+[sub_resource type="Gradient" id="Gradient_s5t10"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.166667, 0.336478, 0.544025, 1)
+colors = PackedColorArray(0.202833, 0.140419, 0.17676, 1, 0.403922, 0.227451, 0.247059, 1, 0.552941, 0.352941, 0.313726, 1, 0.870588, 0.635294, 0.462745, 1, 0.893517, 0.71973, 0.514334, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_17vie"]
+gradient = SubResource("Gradient_s5t10")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_edfjt"]
+panorama = SubResource("GradientTexture2D_17vie")
+filter = false
+
+[sub_resource type="Sky" id="Sky_bepbg"]
+sky_material = SubResource("PanoramaSkyMaterial_edfjt")
+
+[sub_resource type="Environment" id="Environment_3670t"]
+background_mode = 2
+background_color = Color(0.635294, 0.615686, 0.615686, 1)
+sky = SubResource("Sky_bepbg")
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(0.929412, 0.690196, 0.792157, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_js1hu")
@@ -89,42 +249,84 @@ mesh = SubResource("CapsuleMesh_jfild")
 shape = SubResource("ConvexPolygonShape3D_ws8rd")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.810716, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.715687)
-near = 0.151
+current = true
+fov = 100.0
+size = 10.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head"]
+playback_default_blend_time = 0.05
 libraries = {
 "": SubResource("AnimationLibrary_k3cqx")
 }
 
+[node name="ScreenShake" parent="Head" instance=ExtResource("2_lq0ca")]
+unique_name_in_owner = true
+
+[node name="GroundParticles" type="Node3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16469, -0.290093)
+
+[node name="Left" type="GPUParticles3D" parent="Head/GroundParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340906, -0.774468, -0.718526)
+material_override = SubResource("StandardMaterial3D_hegt8")
+emitting = false
+amount = 48
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ng4wl")
+draw_pass_1 = SubResource("PlaneMesh_ewjkb")
+
+[node name="Right" type="GPUParticles3D" parent="Head/GroundParticles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.406115, -0.774468, -0.718526)
+material_override = SubResource("StandardMaterial3D_hegt8")
+emitting = false
+amount = 48
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_2wudj")
+draw_pass_1 = SubResource("PlaneMesh_ewjkb")
+
+[node name="WindMesh" parent="Head" instance=ExtResource("3_4fdej")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.59452)
+surface_material_override/0 = SubResource("ShaderMaterial_ttgml")
+
 [node name="SlideBoostCooldown" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="FloorRaycast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.937951, 0)
-target_position = Vector3(0, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.971566, 0)
+target_position = Vector3(0, -0.75, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SpeedLabel" type="Label" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 512.0
+offset_bottom = 102.0
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 190.0
-offset_bottom = 34.0
+offset_right = 480.0
+offset_bottom = 26.0
 text = "speed: "
 
-[node name="BoostLevel" type="Label" parent="CanvasLayer"]
+[node name="BoostLevel" type="Label" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 100.0
-offset_bottom = 58.0
+offset_top = 30.0
+offset_right = 480.0
+offset_bottom = 56.0
 text = "boost rank: "
+
+[node name="StateLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+offset_top = 60.0
+offset_right = 480.0
+offset_bottom = 86.0
+text = "state: "
 
 [node name="WallDetectors" type="Node3D" parent="."]
 
@@ -133,3 +335,61 @@ target_position = Vector3(1.5, 0, 0)
 
 [node name="Left" type="RayCast3D" parent="WallDetectors"]
 target_position = Vector3(-1.5, 0, 0)
+
+[node name="Fog" type="Node3D" parent="."]
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Fog"]
+transform = Transform3D(90.8789, 0, 0, 0, 90.8789, 0, 0, 0, 90.8789, 0, 0, 0)
+mesh = SubResource("SphereMesh_getxm")
+surface_material_override/0 = SubResource("StandardMaterial3D_nmnpf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Fog"]
+transform = Transform3D(182.763, 0, 0, 0, 182.763, 0, 0, 0, 182.763, 0, 0, 0)
+mesh = SubResource("SphereMesh_getxm")
+surface_material_override/0 = SubResource("StandardMaterial3D_c0not")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Fog"]
+transform = Transform3D(405.799, 0, 0, 0, 405.799, 0, 0, 0, 405.799, 0, 0, 0)
+mesh = SubResource("SphereMesh_getxm")
+surface_material_override/0 = SubResource("StandardMaterial3D_rmqkj")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Fog"]
+transform = Transform3D(606.419, 0, 0, 0, 606.419, 0, 0, 0, 606.419, 0, 0, 0)
+mesh = SubResource("SphereMesh_getxm")
+surface_material_override/0 = SubResource("StandardMaterial3D_r0iaf")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer2/SubViewportContainer"]
+world_3d = SubResource("World3D_125ps")
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(512, 256)
+render_target_update_mode = 4
+
+[node name="Frame" type="Sprite2D" parent="CanvasLayer2/SubViewportContainer/SubViewport"]
+texture_filter = 1
+position = Vector2(256, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_h5tyt")
+
+[node name="Cursor" type="Sprite2D" parent="CanvasLayer2/SubViewportContainer/SubViewport"]
+texture_filter = 1
+position = Vector2(256, 128)
+texture = ExtResource("5_g36a7")
+
+[node name="CoyoteTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3670t")

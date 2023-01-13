@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dei7b1l6h2c11"]
+
+[ext_resource type="Texture2D" uid="uid://db7mp0so2va6r" path="res://share/effects/circle.png" id="1_gqti2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_e786a"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qaghh"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.67451, 0.407843, 0.501961)
+proximity_fade_distance = 134.57
+
+[node name="LightMesh" type="MeshInstance3D"]
+transform = Transform3D(3.9, 0, 0, 0, 3.9, 0, 0, 0, 3.9, 0, 0, 0)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_e786a")
+surface_material_override/0 = SubResource("StandardMaterial3D_qaghh")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.661157, 0)
+extents = Vector3(1, 2, 1)
+texture_albedo = ExtResource("1_gqti2")
+modulate = Color(1, 0.580392, 0.168627, 1)
+cull_mask = 1048573

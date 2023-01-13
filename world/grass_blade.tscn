@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://djhk5pakdkpi5"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_5vk8l"]
+size = Vector2(0.25, 1)
+
+[node name="GrassBlade" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_5vk8l")
