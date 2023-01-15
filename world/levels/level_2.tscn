@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://dt6kvtwhg6cu4"]
+
+[ext_resource type="Script" path="res://world/levels/level.gd" id="1_28g85"]
+[ext_resource type="PackedScene" uid="uid://cgixtatwkdsb4" path="res://share/default_env.tscn" id="1_35x28"]
+[ext_resource type="PackedScene" uid="uid://dgkptfe55p6oq" path="res://characters/player/player.tscn" id="2_jhv4f"]
+[ext_resource type="Script" path="res://world/levels/times.gd" id="2_sjldb"]
+[ext_resource type="Script" path="res://world/ground.gd" id="3_dp2yq"]
+[ext_resource type="Script" path="res://world/ground_type.gd" id="4_tt3w4"]
+[ext_resource type="Material" uid="uid://dfdldt76m3smn" path="res://world/ground_1.tres" id="7_bfqsf"]
+
+[sub_resource type="Resource" id="Resource_dqbm6"]
+script = ExtResource("2_sjldb")
+bronze = null
+silver = null
+gold = null
+hellish = null
+speed_demon = null
+
+[sub_resource type="Resource" id="Resource_bgw3w"]
+script = ExtResource("4_tt3w4")
+ground_color = null
+ground_hit_color = null
+
+[node name="Level2" type="Node3D"]
+script = ExtResource("1_28g85")
+level_name = "level_2"
+player_path = NodePath("Player")
+times = SubResource("Resource_dqbm6")
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_35x28")]
+
+[node name="Player" parent="." instance=ExtResource("2_jhv4f")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 2
+script = ExtResource("3_dp2yq")
+ground_type = SubResource("Resource_bgw3w")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+size = Vector3(11, 1, 13)
+material = ExtResource("7_bfqsf")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -2, -61.5)
+size = Vector3(11, 1, 13)
+material = ExtResource("7_bfqsf")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 3, -25)
+size = Vector3(1, 5, 19)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -103.5)
+size = Vector3(1, 12, 9)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -116.5)
+size = Vector3(1, 17, 9)

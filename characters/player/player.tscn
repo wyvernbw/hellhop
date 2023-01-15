@@ -8,7 +8,7 @@
 [ext_resource type="Shader" path="res://share/effects/wind.gdshader" id="4_adynf"]
 [ext_resource type="Texture2D" uid="uid://na7u6fs21j75" path="res://share/effects/cursor.png" id="5_g36a7"]
 [ext_resource type="PackedScene" uid="uid://6cahsfs20upy" path="res://characters/player/katana/katana.tscn" id="6_nrgi8"]
-[ext_resource type="PackedScene" uid="uid://cvsf7p2tjv7wg" path="res://gui/clear_panel.tscn" id="7_nyruo"]
+[ext_resource type="PackedScene" uid="uid://dgukm0kqjet4v" path="res://gui/clear_panel.tscn" id="7_nyruo"]
 [ext_resource type="Theme" uid="uid://bdm7j71m6my6r" path="res://gui/ui_theme.tres" id="8_6440i"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ws8rd"]
@@ -152,7 +152,7 @@ cellular_return_type = 6
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0te8v"]
 noise = SubResource("FastNoiseLite_eygrp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bj3cw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mc1c"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_adynf")
@@ -293,7 +293,7 @@ size = 10.0
 [node name="WindMesh" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("3_4fdej")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.02457)
-material_override = SubResource("ShaderMaterial_bj3cw")
+material_override = SubResource("ShaderMaterial_1mc1c")
 skeleton = NodePath("../../..")
 
 [node name="Katana" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("6_nrgi8")]
@@ -374,11 +374,11 @@ theme = ExtResource("8_6440i")
 [node name="WallDetectors" type="Node3D" parent="."]
 
 [node name="Right" type="RayCast3D" parent="WallDetectors"]
-target_position = Vector3(1.5, 0, 0)
+target_position = Vector3(2, 0, 0)
 collision_mask = 2
 
 [node name="Left" type="RayCast3D" parent="WallDetectors"]
-target_position = Vector3(-1.5, 0, 0)
+target_position = Vector3(-2, 0, 0)
 collision_mask = 2
 
 [node name="Fog" type="Node3D" parent="."]
@@ -441,6 +441,15 @@ initial_velocity_min = 3.0
 initial_velocity_max = 5.0
 scale_amount_max = 1.5
 scale_amount_curve = SubResource("Curve_k32bh")
+
+[node name="SideDashCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+one_shot = true
+
+[node name="WallCoyoteTime" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [editable path="Head/SpringArm3D/Camera3D/Katana"]
 [editable path="Head/SpringArm3D/Camera3D/Katana/KatanaColored"]

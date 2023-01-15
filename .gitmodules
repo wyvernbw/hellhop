@@ -4,3 +4,6 @@
 [submodule "addons/godot-multimesh-scatter"]
 	path = addons/godot-multimesh-scatter
 	url = https://github.com/arcaneenergy/godot-multimesh-scatter
+[submodule "share/maybe"]
+	path = share/maybe
+	url = https://github.com/wyvernbw/gd-maybe

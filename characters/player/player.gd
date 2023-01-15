@@ -9,6 +9,7 @@ const CROUCH_MAX_SPEED = 5.0
 const MAX_ACCEL = MAX_SPEED * 10.0
 const SLIDE_BOOST_SPEED = 20.0
 const WALL_JUMP_BOOST = 25.0
+const SIDE_DASH_VELOCITY = 80.0
 
 const Frictions = {
 	'GROUNDED': 8.0,
@@ -31,11 +32,13 @@ const Frictions = {
 @onready var _ground_particles = $'%GroundParticles'
 @onready var _screen_shake = $'%ScreenShake'
 @onready var _coyote_time = $CoyoteTime
+@onready var _wall_coyote_time = $WallCoyoteTime
 @onready var _wind_mesh = $'%WindMesh'
 @onready var _katana = $'%Katana'
 @onready var katana_anim = _katana.anim_tree.get("parameters/playback")
 @onready var _katana_cast = $'%KatanaCast'
 @onready var _ground_hit_particles = $'%GroundHitParticles'
+@onready var _side_dash_cooldown = $'%SideDashCooldown'
 
 class MovementState extends Wisp.State:
 	var forwards_input: float
@@ -80,6 +83,14 @@ class MovementState extends Wisp.State:
 		owner.katana_anim.travel("crouch")
 	func stand_up_anim(owner: Player) -> void:
 		owner.katana_anim.travel("stand_up")
+	func to_dash(owner: Node, event: InputEvent) -> Vector3:
+		if owner._side_dash_cooldown.time_left > 0:
+			return Vector3.ZERO
+		if event.is_action_pressed("dash_right"):
+			return Vector3.RIGHT
+		if event.is_action_pressed("dash_left"):
+			return Vector3.LEFT
+		return Vector3.ZERO
 
 class IdleState extends MovementState:
 	func _init():
@@ -89,11 +100,14 @@ class IdleState extends MovementState:
 		if to_moving():
 			return MovingState.new()
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_crouch(event):
 			return IdleCrouch.new()
 		if to_jumping(event):
 			return Jumping.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
 
 class IdleCrouch extends MovementState:
@@ -113,11 +127,14 @@ class IdleCrouch extends MovementState:
 		if to_moving():
 			return Sliding.new()
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_standing_up(event):
 			return IdleState.new()
 		if to_jumping(event):
 			return Jumping.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
 
 class Sliding extends MovementState:
@@ -143,13 +160,16 @@ class Sliding extends MovementState:
 		if to_idle():
 			return IdleCrouch.new()
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_standing_up(event):
 			if to_idle():
 				return IdleState.new()
 			return MovingState.new()
 		if to_jumping(event):
 			return Jumping.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
 
 class MovingState extends MovementState:
@@ -166,11 +186,16 @@ class MovingState extends MovementState:
 				return WallRunning.new(detector)
 		move(owner, delta)
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_crouch(event):
 			return Sliding.new()
 		if to_jumping(event):
+			if owner._wall_coyote_time.time_left > 0:
+				return WallJumping.new(owner.last_wall_normal)
 			return Jumping.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
 
 class WallRunning extends MovementState:
@@ -193,11 +218,13 @@ class WallRunning extends MovementState:
 		owner.on_wall = true
 		var h_orientation = owner.transform.basis.z.dot(Vector3.UP)
 		owner.velocity = owner.velocity.rotated(Vector3.UP, PI / 2 * h_orientation)
+		owner.last_wall_normal = wall_normal
 		return self
 	func exit(owner: Node) -> void:
 		owner._head_anim.play("go_back")
 		owner.gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		owner.on_wall = false
+		owner._wall_coyote_time.start()
 	func wisp_physics_process(owner: Node, delta: float) -> Wisp.State:
 		update_movement(owner, delta)
 		if forwards_input == 0 and strafe_input == 0:
@@ -220,9 +247,12 @@ class WallJumping extends MovementState:
 		owner.velocity += wall_normal * WALL_JUMP_BOOST
 		owner.velocity.y = owner.jump_velocity
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_landing(event):
 			return MovingState.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
 
 class Jumping extends MovementState:
@@ -234,10 +264,44 @@ class Jumping extends MovementState:
 		if owner.crouching:
 			owner.crouch_buffered = true
 		return self
-	func wisp_input(_owner, event) -> Wisp.State:
+	func wisp_input(owner, event) -> Wisp.State:
 		if to_landing(event):
 			return MovingState.new()
+		var dash_direction = to_dash(owner, event)
+		if dash_direction != Vector3.ZERO:
+			return SideDash.new(dash_direction)
 		return self
+
+class SideDash extends MovementState:
+	const SIDE_DASH_TIME = 0.1
+	var direction: Vector3
+	var dash_time: Timer
+	func _init(dir: Vector3):
+		direction = dir.normalized()
+		name = "side dash"
+		dash_time = Timer.new()
+		dash_time.one_shot = true
+		dash_time.wait_time = SIDE_DASH_TIME
+	func enter(owner) -> Wisp.State:
+		dash_time.timeout.connect(on_dash_time_end.bind(owner, owner.velocity))
+		owner.add_child(dash_time)
+		var impulse = owner.transform.basis.x * owner.SIDE_DASH_VELOCITY * direction.x	
+		owner.velocity.x = impulse.x
+		owner.velocity.y = 0.0
+		dash_time.start()
+		return self
+	func wisp_physics_process(owner: Node, delta: float) -> Wisp.State:
+		var ray = owner.get_wall_raycast()
+		return self
+	func on_dash_time_end(owner: Node, old_velocity: Vector3):
+		owner.velocity = old_velocity
+		owner.velocity.y = 0.0
+		owner._side_dash_cooldown.start()
+		transition.emit(MovingState.new())
+	func exit(owner: Node) -> void:
+		dash_time.timeout.disconnect(on_dash_time_end.bind(owner, owner.velocity))
+		dash_time.queue_free()
+
 
 ### COMBAT STATES
 class CombatState extends Wisp.State:
@@ -292,6 +356,7 @@ var on_wall: bool = false
 var crouch_buffered: bool = false
 var boost_count: int = 0
 var crouched_once: bool = false
+var last_wall_normal: Vector3 = Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -370,3 +435,9 @@ func slide_boost() -> void:
 
 func get_coyote_time() -> bool:
 	return _coyote_time.time_left > 0.0
+
+func get_wall_raycast() -> RayCast3D:
+	for ray in wall_detectors.get_children():
+		if ray.is_colliding():
+			return ray
+	return null
