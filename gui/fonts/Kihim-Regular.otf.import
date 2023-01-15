@@ -1,0 +1,39 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://bjb4dq7pfserg"
+path="res://.godot/imported/Kihim-Regular.otf-d16ac3620c9ee1029005f4ee20bd5a68.fontdata"
+
+[deps]
+
+source_file="res://gui/fonts/Kihim-Regular.otf"
+dest_files=["res://.godot/imported/Kihim-Regular.otf-d16ac3620c9ee1029005f4ee20bd5a68.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=1.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+"variation_embolden": 0.0
+}]
+language_support={}
+script_support={}
+opentype_features={}

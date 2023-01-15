@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://rs3066snbso4"]
+
+[ext_resource type="PackedScene" uid="uid://cy24h5e4kpnu0" path="res://gui/rank_label.tscn" id="1_b2477"]
+[ext_resource type="Shader" path="res://gui/gold_rank.gdshader" id="2_qud7u"]
+
+[sub_resource type="Gradient" id="Gradient_7xv2u"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.391304, 1)
+colors = PackedColorArray(0.564706, 0.321569, 0.737255, 1, 0.831373, 0.501961, 0.733333, 1, 0.933333, 0.709804, 0.611765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5bk01"]
+gradient = SubResource("Gradient_7xv2u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tg4k"]
+resource_local_to_scene = true
+shader = ExtResource("2_qud7u")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_5bk01")
+
+[sub_resource type="Gradient" id="Gradient_yo8i5"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dwly3"]
+gradient = SubResource("Gradient_yo8i5")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="HellishRank" instance=ExtResource("1_b2477")]
+material = SubResource("ShaderMaterial_1tg4k")
+text = "Hellish"
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="0"]
+position = Vector2(39, 15)
+color = Color(0.831373, 0.501961, 0.733333, 1)
+texture = SubResource("GradientTexture2D_dwly3")
+texture_scale = 1.5

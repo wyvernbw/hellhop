@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ukviyiqtabmx"]
+
+[sub_resource type="Gradient" id="Gradient_soc1c"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.274854, 1)
+colors = PackedColorArray(0.151069, 0.144812, 0.327227, 1, 0.282367, 0.483329, 0.556788, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jhajk"]
+gradient = SubResource("Gradient_soc1c")
+fill_to = Vector2(0, 1)
+
+[resource]
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_jhajk")

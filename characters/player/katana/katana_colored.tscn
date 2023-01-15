@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://cr2byro0mrn0y"]
+
+[ext_resource type="PackedScene" uid="uid://c20tnmqv3qefa" path="res://characters/player/katana/katana.glb" id="1_ji0pu"]
+[ext_resource type="Material" uid="uid://bv7dtnwmcu82i" path="res://characters/player/katana/materials/saya.tres" id="2_nv36u"]
+[ext_resource type="Material" uid="uid://ccbmxk2afwdb" path="res://characters/player/katana/materials/decoration.tres" id="3_vn0as"]
+[ext_resource type="Material" uid="uid://bnm3ngxg1q7ub" path="res://characters/player/katana/materials/blade.tres" id="4_2gomb"]
+[ext_resource type="Material" uid="uid://ds8w3ss0e7tu0" path="res://characters/player/katana/materials/tsuba.tres" id="5_2h58m"]
+[ext_resource type="Material" uid="uid://ukviyiqtabmx" path="res://characters/player/katana/materials/tsuka.tres" id="6_8pc5w"]
+
+[sub_resource type="Animation" id="Animation_jaj11"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaRig/Skeleton3D:Bone")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 60.9393, 15.3113, -34.4713)
+
+[sub_resource type="Animation" id="Animation_5gb4r"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaRig/Skeleton3D:Bone")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 60.9393, 15.3113, -34.4713)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KatanaRig/Skeleton3D:Bone")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.793035, -0.288389, -0.342534, -0.413034)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KatanaRig/Skeleton3D:Bone")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 10, 10, 10)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wbnfp"]
+_data = {
+"RESET": SubResource("Animation_jaj11"),
+"idle": SubResource("Animation_5gb4r")
+}
+
+[node name="KatanaColored" instance=ExtResource("1_ji0pu")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="KatanaRig" index="0"]
+bones/0/position = Vector3(60.9393, 15.3113, -34.4713)
+bones/0/rotation = Quaternion(0.793035, -0.288389, -0.342534, -0.413034)
+
+[node name="Katana" parent="KatanaRig/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_2gomb")
+surface_material_override/1 = ExtResource("5_2h58m")
+surface_material_override/2 = ExtResource("6_8pc5w")
+
+[node name="Saya" parent="SayaRig/Skeleton3D2" index="0"]
+surface_material_override/0 = ExtResource("2_nv36u")
+surface_material_override/1 = ExtResource("3_vn0as")
+
+[node name="Anim" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_wbnfp")
+}

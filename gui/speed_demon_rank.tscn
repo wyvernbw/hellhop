@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://rgpovjjo5scu"]
+
+[ext_resource type="PackedScene" uid="uid://cy24h5e4kpnu0" path="res://gui/rank_label.tscn" id="1_vp60e"]
+[ext_resource type="Shader" path="res://gui/gold_rank.gdshader" id="2_g3a7j"]
+
+[sub_resource type="Gradient" id="Gradient_syygk"]
+interpolation_mode = 2
+colors = PackedColorArray(0.739663, 0, 0.257403, 1, 0.485814, 0.00719041, 0.19155, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ar043"]
+gradient = SubResource("Gradient_syygk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tflk2"]
+resource_local_to_scene = true
+shader = ExtResource("2_g3a7j")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_ar043")
+
+[node name="SpeedDemonRank" instance=ExtResource("1_vp60e")]
+material = SubResource("ShaderMaterial_tflk2")
+text = "SPEED DEMON"

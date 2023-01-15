@@ -2,9 +2,6 @@
 
 [ext_resource type="Shader" path="res://share/effects/wind.gdshader" id="1_nj132"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_wsilx"]
-top_radius = 0.0
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eygrp"]
 noise_type = 2
 seed = 5
@@ -19,13 +16,16 @@ noise = SubResource("FastNoiseLite_eygrp")
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_nj132")
-shader_parameter/threshold = 0.64
-shader_parameter/threshold_min = 0.64
+shader_parameter/threshold = 0.56
+shader_parameter/threshold_min = 0.56
 shader_parameter/speed = 0.05
 shader_parameter/tex = SubResource("NoiseTexture2D_0te8v")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_wsilx"]
+top_radius = 0.0
+
 [node name="WindMesh" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_qytt1")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_wsilx")
-surface_material_override/0 = SubResource("ShaderMaterial_qytt1")

@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://ce64y52yq5vs7"]
+
+[ext_resource type="FontFile" uid="uid://3uo8vp45m3e5" path="res://gui/fonts/Quicksand-Bold.otf" id="1_ch2d3"]
+[ext_resource type="FontFile" uid="uid://bjb4dq7pfserg" path="res://gui/fonts/Kihim-Regular.otf" id="1_s55oc"]
+[ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_iscl7"]
+[ext_resource type="Texture2D" uid="uid://cshh1wdqdft66" path="res://share/effects/frame.png" id="4_udxek"]
+[ext_resource type="Script" path="res://gui/transition_button.gd" id="4_vd27u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8c66t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4645w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67c1g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpi4c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_knctk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3d2s"]
+bg_color = Color(0.0941176, 0.0666667, 0.0980392, 1)
+
+[sub_resource type="Theme" id="Theme_wnr8l"]
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.772549)
+Button/colors/font_hover_color = Color(0.619608, 0.847059, 1, 0.839216)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_ch2d3")
+Button/styles/disabled = SubResource("StyleBoxEmpty_8c66t")
+Button/styles/focus = SubResource("StyleBoxEmpty_4645w")
+Button/styles/hover = SubResource("StyleBoxEmpty_67c1g")
+Button/styles/normal = SubResource("StyleBoxEmpty_gpi4c")
+Button/styles/pressed = SubResource("StyleBoxEmpty_knctk")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_k3d2s")
+
+[sub_resource type="Curve" id="Curve_2wy4n"]
+_data = [Vector2(0.630037, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0454545), -3.57382, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_fygbs"]
+font_size = 36
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_wnr8l")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+metadata/_edit_use_anchors_ = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PanelContainer/MarginContainer"]
+z_index = 1
+texture_filter = 1
+position = Vector2(256, 256)
+amount = 96
+texture = ExtResource("2_iscl7")
+emission_shape = 3
+emission_rect_extents = Vector2(288, 1)
+gravity = Vector2(200, -300)
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_2wy4n")
+color = Color(0.733333, 0.219608, 0.305882, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s55oc")
+text = "HELLHOP"
+label_settings = SubResource("LabelSettings_fygbs")
+
+[node name="Play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "play"
+alignment = 0
+script = ExtResource("4_vd27u")
+scene_path = "res://gui/level_select/level_select.tscn"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Settings"
+
+[node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quit"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(256, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("4_udxek")

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ds8w3ss0e7tu0"]
+
+[sub_resource type="Gradient" id="Gradient_ci8vg"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.385965)
+colors = PackedColorArray(1, 0.852164, 0.381763, 1, 0.61704, 0.298233, 0.343897, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cbek5"]
+gradient = SubResource("Gradient_ci8vg")
+
+[resource]
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture1D_cbek5")

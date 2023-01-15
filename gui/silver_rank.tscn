@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5evch3j4qxo8"]
+
+[ext_resource type="PackedScene" uid="uid://cy24h5e4kpnu0" path="res://gui/rank_label.tscn" id="1_rx0iq"]
+[ext_resource type="Shader" path="res://gui/gold_rank.gdshader" id="2_ig0qj"]
+
+[sub_resource type="Gradient" id="Gradient_a6mlj"]
+interpolation_mode = 2
+colors = PackedColorArray(0.582214, 0.521098, 0.668599, 1, 0.668324, 0.737875, 0.775045, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_elfoi"]
+gradient = SubResource("Gradient_a6mlj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0rq4"]
+resource_local_to_scene = true
+shader = ExtResource("2_ig0qj")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_elfoi")
+
+[node name="Rank" instance=ExtResource("1_rx0iq")]
+material = SubResource("ShaderMaterial_b0rq4")
+text = "SILVER"

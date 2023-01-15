@@ -19,6 +19,26 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://world/ground_type.gd"
 }, {
+"base": "Node3D",
+"class": &"Level",
+"language": &"GDScript",
+"path": "res://world/levels/level.gd"
+}, {
+"base": "CharacterBody3D",
+"class": &"Player",
+"language": &"GDScript",
+"path": "res://characters/player/player.gd"
+}, {
+"base": "Resource",
+"class": &"Times",
+"language": &"GDScript",
+"path": "res://world/levels/times.gd"
+}, {
+"base": "Button",
+"class": &"TransitionButton",
+"language": &"GDScript",
+"path": "res://gui/transition_button.gd"
+}, {
 "base": "Node",
 "class": &"Wisp",
 "language": &"GDScript",
@@ -27,27 +47,36 @@ _global_script_classes=[{
 _global_script_class_icons={
 "Ground": "",
 "GroundType": "",
+"Level": "",
+"Player": "",
+"Times": "",
+"TransitionButton": "",
 "Wisp": ""
 }
 
 [application]
 
 config/name="Hellhop"
-run/main_scene="res://world/level_1.tscn"
+run/main_scene="res://gui/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameSaver="*res://share/game_saver.gd"
+Transition="*res://gui/transition.tscn"
 
 [display]
 
 window/size/viewport_width=512
 window/size/viewport_height=256
-window/size/mode=2
-window/size/extend_to_title=true
+window/size/mode=3
+window/vsync/vsync_mode=0
 window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-multimesh-scatter/addons/multimesh_scatter/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -86,9 +115,20 @@ restart={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"unicode":0,"echo":false,"script":null)
 ]
 }
+slash={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="world"
 
 [physics]
 
+common/physics_ticks_per_second=200
 3d/default_gravity=60.0
 
 [rendering]

@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dfrt3nqfiu5hk" path="res://share/effects/wind_mesh.tscn" id="3_4fdej"]
 [ext_resource type="Shader" path="res://share/effects/wind.gdshader" id="4_adynf"]
 [ext_resource type="Texture2D" uid="uid://na7u6fs21j75" path="res://share/effects/cursor.png" id="5_g36a7"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jfild"]
+[ext_resource type="PackedScene" uid="uid://6cahsfs20upy" path="res://characters/player/katana/katana.tscn" id="6_nrgi8"]
+[ext_resource type="PackedScene" uid="uid://cvsf7p2tjv7wg" path="res://gui/clear_panel.tscn" id="7_nyruo"]
+[ext_resource type="Theme" uid="uid://bdm7j71m6my6r" path="res://gui/ui_theme.tres" id="8_6440i"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ws8rd"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
@@ -18,7 +19,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/path = NodePath("SpringArm3D/Camera3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +43,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6mgnx"]
 resource_name = "crouch"
-length = 0.1
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -62,7 +63,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/path = NodePath("SpringArm3D/Camera3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,7 +79,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/path = NodePath("SpringArm3D/Camera3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -94,7 +95,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/path = NodePath("SpringArm3D/Camera3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -106,7 +107,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_v5edw"]
 resource_name = "stand_up"
-length = 0.1
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -136,23 +137,10 @@ shading_mode = 0
 albedo_texture = ExtResource("2_h6wsm")
 texture_filter = 0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ng4wl"]
-direction = Vector3(-1, 1, 0)
-flatness = 1.0
-initial_velocity_min = 10.0
-initial_velocity_max = 10.0
-scale_max = 2.0
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_ewjkb"]
 lightmap_size_hint = Vector2i(4, 4)
 size = Vector2(0.5, 0.5)
 orientation = 2
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2wudj"]
-direction = Vector3(1, 1, 0)
-flatness = 1.0
-initial_velocity_min = 10.0
-initial_velocity_max = 10.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eygrp"]
 noise_type = 2
@@ -164,14 +152,16 @@ cellular_return_type = 6
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0te8v"]
 noise = SubResource("FastNoiseLite_eygrp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttgml"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bj3cw"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_adynf")
-shader_parameter/threshold = 0.52
-shader_parameter/threshold_min = 0.52
+shader_parameter/threshold = 0.64
+shader_parameter/threshold_min = 0.64
 shader_parameter/speed = 0.05
 shader_parameter/tex = SubResource("NoiseTexture2D_0te8v")
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_dfqw8"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_getxm"]
 
@@ -199,20 +189,6 @@ cull_mode = 1
 shading_mode = 0
 albedo_color = Color(0.862745, 0.407843, 0.345098, 0.313726)
 
-[sub_resource type="Gradient" id="Gradient_oiq4a"]
-colors = PackedColorArray(0.203922, 0.141176, 0.176471, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cum1o"]
-gradient = SubResource("Gradient_oiq4a")
-
-[sub_resource type="Environment" id="Environment_48gel"]
-background_mode = 3
-adjustment_enabled = true
-adjustment_color_correction = SubResource("GradientTexture1D_cum1o")
-
-[sub_resource type="World3D" id="World3D_125ps"]
-environment = SubResource("Environment_48gel")
-
 [sub_resource type="Gradient" id="Gradient_s5t10"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.166667, 0.336478, 0.544025, 1)
@@ -238,24 +214,33 @@ tonemap_mode = 2
 glow_enabled = true
 fog_light_color = Color(0.929412, 0.690196, 0.792157, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y16fx"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_texture = ExtResource("2_h6wsm")
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_mh00k"]
+
+[sub_resource type="Curve" id="Curve_k32bh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.50394, 0.0, 0, 0]
+point_count = 2
+
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 2
 script = ExtResource("1_js1hu")
 jump_velocity = 25.0
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_jfild")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_ws8rd")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.715687)
-current = true
-fov = 100.0
-size = 10.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head"]
 playback_default_blend_time = 0.05
@@ -270,28 +255,67 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16469, -0.290093)
 
-[node name="Left" type="GPUParticles3D" parent="Head/GroundParticles"]
+[node name="Left" type="CPUParticles3D" parent="Head/GroundParticles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340906, -0.774468, -0.718526)
 material_override = SubResource("StandardMaterial3D_hegt8")
 emitting = false
 amount = 48
 local_coords = true
-process_material = SubResource("ParticleProcessMaterial_ng4wl")
-draw_pass_1 = SubResource("PlaneMesh_ewjkb")
+mesh = SubResource("PlaneMesh_ewjkb")
+direction = Vector3(-1, 1, 0)
+flatness = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_amount_max = 2.0
 
-[node name="Right" type="GPUParticles3D" parent="Head/GroundParticles"]
+[node name="Right" type="CPUParticles3D" parent="Head/GroundParticles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.406115, -0.774468, -0.718526)
 material_override = SubResource("StandardMaterial3D_hegt8")
 emitting = false
 amount = 48
 local_coords = true
-process_material = SubResource("ParticleProcessMaterial_2wudj")
-draw_pass_1 = SubResource("PlaneMesh_ewjkb")
+mesh = SubResource("PlaneMesh_ewjkb")
+direction = Vector3(1, 1, 0)
+flatness = 1.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
 
-[node name="WindMesh" parent="Head" instance=ExtResource("3_4fdej")]
+[node name="SpringArm3D" type="SpringArm3D" parent="Head"]
+spring_length = 0.5
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="Head/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.715687)
+current = true
+fov = 100.0
+size = 10.0
+
+[node name="WindMesh" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("3_4fdej")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.59452)
-surface_material_override/0 = SubResource("ShaderMaterial_ttgml")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.02457)
+material_override = SubResource("ShaderMaterial_bj3cw")
+skeleton = NodePath("../../..")
+
+[node name="Katana" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("6_nrgi8")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0480446, -0.396362, -0.386171)
+
+[node name="Anim" parent="Head/SpringArm3D/Camera3D/Katana" index="0"]
+blend_times = [&"slash_1", &"idle", 0.5, &"idle", &"slash_1", 0.5, &"idle", &"idle", 0.5]
+
+[node name="KatanaColored" parent="Head/SpringArm3D/Camera3D/Katana" index="1"]
+transform = Transform3D(-0.0500004, 0, 0.0866022, 0, 0.1, 0, -0.0866022, 0, -0.0500004, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Head/SpringArm3D/Camera3D/Katana/KatanaColored/KatanaRig" index="0"]
+bones/0/rotation = Quaternion(0.793035, -0.288389, -0.342534, -0.413034)
+
+[node name="KatanaAnimationTree" parent="Head/SpringArm3D/Camera3D/Katana" index="2"]
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dfqw8")
+
+[node name="KatanaCast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+target_position = Vector3(0, -1, -100)
+collision_mask = 6
 
 [node name="SlideBoostCooldown" type="Timer" parent="."]
 one_shot = true
@@ -299,42 +323,63 @@ one_shot = true
 [node name="FloorRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.971566, 0)
 target_position = Vector3(0, -0.75, 0)
+collision_mask = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ClearPanel" parent="CanvasLayer" groups=["clear_menu"] instance=ExtResource("7_nyruo")]
+offset_left = 24.0
+offset_right = 208.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
 offset_left = 32.0
 offset_top = 16.0
 offset_right = 512.0
 offset_bottom = 102.0
+theme = ExtResource("8_6440i")
 
 [node name="SpeedLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_right = 480.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "speed: "
 
 [node name="BoostLevel" type="Label" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 30.0
-offset_right = 480.0
-offset_bottom = 56.0
+layout_mode = 2
 text = "boost rank: "
 
 [node name="StateLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
 unique_name_in_owner = true
-offset_top = 60.0
-offset_right = 480.0
-offset_bottom = 86.0
+layout_mode = 2
 text = "state: "
+
+[node name="FPS" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 400.0
+offset_top = 224.0
+offset_right = 448.0
+offset_bottom = 247.0
+theme = ExtResource("8_6440i")
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 368.0
+offset_top = 16.0
+offset_right = 448.0
+offset_bottom = 39.0
+theme = ExtResource("8_6440i")
 
 [node name="WallDetectors" type="Node3D" parent="."]
 
 [node name="Right" type="RayCast3D" parent="WallDetectors"]
 target_position = Vector3(1.5, 0, 0)
+collision_mask = 2
 
 [node name="Left" type="RayCast3D" parent="WallDetectors"]
 target_position = Vector3(-1.5, 0, 0)
+collision_mask = 2
 
 [node name="Fog" type="Node3D" parent="."]
 visible = false
@@ -360,29 +405,15 @@ mesh = SubResource("SphereMesh_getxm")
 surface_material_override/0 = SubResource("StandardMaterial3D_r0iaf")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer2"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer2/SubViewportContainer"]
-world_3d = SubResource("World3D_125ps")
-transparent_bg = true
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(512, 256)
-render_target_update_mode = 4
-
-[node name="Frame" type="Sprite2D" parent="CanvasLayer2/SubViewportContainer/SubViewport"]
+[node name="Frame" type="Sprite2D" parent="CanvasLayer2"]
 texture_filter = 1
 position = Vector2(256, 128)
 scale = Vector2(2, 2)
 texture = ExtResource("2_h5tyt")
 
-[node name="Cursor" type="Sprite2D" parent="CanvasLayer2/SubViewportContainer/SubViewport"]
+[node name="Cursor" type="Sprite2D" parent="CanvasLayer2"]
 texture_filter = 1
 position = Vector2(256, 128)
 texture = ExtResource("5_g36a7")
@@ -393,3 +424,23 @@ one_shot = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3670t")
+
+[node name="GroundHitParticles" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+top_level = true
+material_override = SubResource("StandardMaterial3D_y16fx")
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("QuadMesh_mh00k")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_k32bh")
+
+[editable path="Head/SpringArm3D/Camera3D/Katana"]
+[editable path="Head/SpringArm3D/Camera3D/Katana/KatanaColored"]

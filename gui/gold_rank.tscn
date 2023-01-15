@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjvpxi5wcdjdu"]
+
+[ext_resource type="Shader" path="res://gui/gold_rank.gdshader" id="1_2q1do"]
+[ext_resource type="PackedScene" uid="uid://cy24h5e4kpnu0" path="res://gui/rank_label.tscn" id="1_gbvfy"]
+
+[sub_resource type="Gradient" id="Gradient_yp6ph"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.428571)
+colors = PackedColorArray(0.972549, 0.772549, 0.227451, 1, 0.909804, 0.541176, 0.211765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jnfp6"]
+gradient = SubResource("Gradient_yp6ph")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s4x6d"]
+resource_local_to_scene = true
+shader = ExtResource("1_2q1do")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_jnfp6")
+
+[node name="GoldRank" instance=ExtResource("1_gbvfy")]
+material = SubResource("ShaderMaterial_s4x6d")
+text = "GOLD
+"

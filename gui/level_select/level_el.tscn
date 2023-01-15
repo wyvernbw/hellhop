@@ -1,0 +1,243 @@
+[gd_scene load_steps=24 format=3 uid="uid://b3vrfkaoh2pdp"]
+
+[ext_resource type="Script" path="res://gui/level_select/level_el.gd" id="1_44hgo"]
+[ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_l64hc"]
+
+[sub_resource type="Shader" id="Shader_433wf"]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+void fragment() {
+	vec4 tint = texture(color_ramp, UV);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = tint * color.a * color;
+
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_2004m"]
+interpolation_mode = 2
+colors = PackedColorArray(0.662745, 0.309804, 0.286275, 1, 0.352941, 0.262745, 0.266667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0chq0"]
+gradient = SubResource("Gradient_2004m")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jge0m"]
+shader = SubResource("Shader_433wf")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_0chq0")
+
+[sub_resource type="Shader" id="Shader_fgqqu"]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+void fragment() {
+	vec4 tint = texture(color_ramp, UV);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = tint * color.a * color;
+
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_jas3g"]
+interpolation_mode = 2
+colors = PackedColorArray(0.582214, 0.521098, 0.668599, 1, 0.668324, 0.737875, 0.775045, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b2rqe"]
+gradient = SubResource("Gradient_jas3g")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sydn0"]
+shader = SubResource("Shader_fgqqu")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_b2rqe")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_udgd7"]
+load_path = "res://.godot/imported/diamond_particle.png-6fc4e8b95bc7fece171f98b57fbc8f63.s3tc.ctex"
+
+[sub_resource type="Shader" id="Shader_ma11u"]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+void fragment() {
+	vec4 tint = texture(color_ramp, UV);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = tint * color.a * color;
+
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_0jvp5"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.428571)
+colors = PackedColorArray(0.972549, 0.772549, 0.227451, 1, 0.909804, 0.541176, 0.211765, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u4fbj"]
+gradient = SubResource("Gradient_0jvp5")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdbng"]
+shader = SubResource("Shader_ma11u")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_u4fbj")
+
+[sub_resource type="Shader" id="Shader_gvvc0"]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+void fragment() {
+	vec4 tint = texture(color_ramp, UV);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = tint * color.a * color;
+
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_iaqnt"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.391304, 1)
+colors = PackedColorArray(0.564706, 0.321569, 0.737255, 1, 0.831373, 0.501961, 0.733333, 1, 0.933333, 0.709804, 0.611765, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wcr8h"]
+gradient = SubResource("Gradient_iaqnt")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ev4c3"]
+shader = SubResource("Shader_gvvc0")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_wcr8h")
+
+[sub_resource type="Shader" id="Shader_hejll"]
+code = "shader_type canvas_item;
+
+uniform sampler2D color_ramp;
+
+void fragment() {
+	vec4 tint = texture(color_ramp, UV);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = tint * color.a * color;
+
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_fmpv6"]
+interpolation_mode = 2
+colors = PackedColorArray(0.739663, 0, 0.257403, 1, 0.485814, 0.00719041, 0.19155, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5k7fi"]
+gradient = SubResource("Gradient_fmpv6")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4hp3"]
+shader = SubResource("Shader_hejll")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_5k7fi")
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(240, 32)
+anchor_right = 0.4685
+anchor_bottom = 0.12525
+offset_right = 0.127991
+offset_bottom = -0.064003
+mouse_default_cursor_shape = 2
+script = ExtResource("1_44hgo")
+level_name = "level_1"
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.179167
+anchor_top = -0.09375
+anchor_right = 0.0333333
+anchor_bottom = -0.09375
+offset_left = 43.0
+offset_top = 3.0
+offset_right = 232.0
+offset_bottom = 37.0
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "level #1"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.000s"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Rank1" type="CenterContainer" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Bronze" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Rank1"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_jge0m")
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_l64hc")
+stretch_mode = 3
+
+[node name="Silver" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Rank1"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_sydn0")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_udgd7")
+stretch_mode = 3
+
+[node name="Gold" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Rank1"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_wdbng")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_udgd7")
+stretch_mode = 3
+
+[node name="Hellish" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Rank1"]
+unique_name_in_owner = true
+texture_filter = 3
+material = SubResource("ShaderMaterial_ev4c3")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_udgd7")
+stretch_mode = 3
+
+[node name="Rank2" type="CenterContainer" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SpeedDemon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/Rank2"]
+unique_name_in_owner = true
+texture_filter = 3
+material = SubResource("ShaderMaterial_d4hp3")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_udgd7")
+stretch_mode = 3
