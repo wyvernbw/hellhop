@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cis3wfdrpyot4"]
+
+[ext_resource type="Script" path="res://world/zipline/zipline_area.gd" id="1_yas57"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xoq74"]
+size = Vector3(10, 1.2, 10)
+
+[node name="ZipLineArea" type="Area3D" groups=["zipline_area"]]
+collision_layer = 8
+script = ExtResource("1_yas57")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xoq74")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

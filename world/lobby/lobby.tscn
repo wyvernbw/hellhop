@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://brgb6wvbslpk1"]
+
+[ext_resource type="PackedScene" uid="uid://cgixtatwkdsb4" path="res://share/default_env.tscn" id="1_3jri8"]
+[ext_resource type="Material" uid="uid://dfdldt76m3smn" path="res://world/ground_1.tres" id="2_c5a81"]
+[ext_resource type="PackedScene" uid="uid://cegeep1t2f880" path="res://characters/jin/jin.tscn" id="3_lhq13"]
+[ext_resource type="PackedScene" uid="uid://k8a17ntjr1vb" path="res://characters/cheese_puffs/cheese_puffs.tscn" id="4_h513q"]
+[ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="5_0imh5"]
+[ext_resource type="PackedScene" uid="uid://dei7b1l6h2c11" path="res://share/effects/light_mesh.tscn" id="6_epmrp"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ro0uc"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kf3xk"]
+shading_mode = 0
+albedo_color = Color(0.247059, 0.168627, 0.156863, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uddxv"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("5_0imh5")
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_sd4l2"]
+material = SubResource("StandardMaterial3D_uddxv")
+
+[sub_resource type="Curve" id="Curve_k8rqn"]
+_data = [Vector2(0.725275, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0090909), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_tdxah"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.248, 0.728, 1)
+colors = PackedColorArray(1, 0.234567, 0.315407, 1, 0.213133, 0.00890091, 0.17463, 1, 0.192157, 0.00392157, 0.168627, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iuklx"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.415686, 0.443137, 0.14902)
+proximity_fade_distance = 134.57
+
+[node name="Lobby" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_3jri8")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
+mesh = SubResource("PlaneMesh_ro0uc")
+material = ExtResource("2_c5a81")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0, 0)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-2.98023e-08, 0, 1, 0.707107, 0.707107, 2.10734e-08, -0.707107, 0.707107, -2.10734e-08, 0, 1, 0)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.353553, 0.353553, -0.866025, 0.707107, 0.707107, 2.10734e-08, 0.612372, -0.612372, -0.5, 0, 1, -1)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.683013, 0.683013, 0.258819, 0.707107, 0.707107, 4.21468e-08, -0.183013, 0.183013, -0.965926, 1, 1, 0)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, -0.707107, 8.9407e-08, 0.707107, 0.707107, 4.11134e-08, -7.45058e-08, 5.96046e-08, 1, -1, 1, 0)
+size = Vector3(4, 1, 1)
+material = SubResource("StandardMaterial3D_kf3xk")
+
+[node name="oldman" parent="." instance=ExtResource("3_lhq13")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 6, 0, 0)
+
+[node name="CheesePuffs" parent="." instance=ExtResource("4_h513q")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5, 0, 0)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+amount = 96
+mesh = SubResource("QuadMesh_sd4l2")
+emission_shape = 1
+emission_sphere_radius = 1.5
+gravity = Vector3(0, 10, 0)
+scale_amount_min = 1.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_k8rqn")
+color_ramp = SubResource("Gradient_tdxah")
+
+[node name="LightMesh" parent="CPUParticles3D" instance=ExtResource("6_epmrp")]
+transform = Transform3D(5.35275, 0, 0, 0, 5.35275, 0, 0, 0, 5.35275, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_iuklx")
+
+[node name="Decal" parent="CPUParticles3D/LightMesh" index="0"]
+modulate = Color(1, 0.133333, 0, 0.176471)
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+fov = 110.0
+
+[editable path="CPUParticles3D/LightMesh"]

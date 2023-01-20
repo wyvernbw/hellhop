@@ -1,0 +1,102 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://cydqvmn71ktto"]
+
+[ext_resource type="Texture2D" uid="uid://duoier12y2vy7" path="res://share/effects/grass.png" id="1_qmadt"]
+
+[sub_resource type="Shader" id="Shader_6x57r"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta11's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_always,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;
+uniform vec4 albedo : source_color;
+uniform sampler2D wind_tex;
+uniform float wind_tex_size;
+uniform vec3 wind_direction;
+uniform float offset_amount;
+uniform sampler2D offset_tex;
+uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
+uniform float alpha_scissor_threshold;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_nearest,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+uniform float wind_speed: hint_range(0.0, 1.0, 0.1);
+uniform float wind_amount;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+	vec3 world_vert = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+
+	vec2 wind_uv = (world_vert.xz ) / wind_tex_size + TIME * wind_speed;
+	float wind_value = texture(wind_tex, wind_uv).r * (1.0 - UV.y) * wind_amount;
+	VERTEX += wind_value * normalize(wind_direction);
+	VERTEX.xz += (texture(offset_tex, world_vert.xz / wind_tex_size).r - 0.5) * offset_amount;
+}
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	ALPHA *= albedo.a * albedo_tex.a;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_krkde"]
+noise_type = 3
+frequency = 0.076
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q4htc"]
+noise = SubResource("FastNoiseLite_krkde")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i5e03"]
+noise_type = 3
+seed = 34
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4n8ls"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.415
+noise = SubResource("FastNoiseLite_i5e03")
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_6x57r")
+shader_parameter/albedo = Color(0.34902, 0.811765, 0.576471, 1)
+shader_parameter/wind_tex_size = 40.0
+shader_parameter/wind_direction = Vector3(1, 0, 1)
+shader_parameter/offset_amount = 3.0
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/wind_speed = 0.1
+shader_parameter/wind_amount = 2.5
+shader_parameter/wind_tex = SubResource("NoiseTexture2D_4n8ls")
+shader_parameter/offset_tex = SubResource("NoiseTexture2D_q4htc")
+shader_parameter/texture_albedo = ExtResource("1_qmadt")

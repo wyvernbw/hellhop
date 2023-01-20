@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://bebmsuw15ss1f"]
+
+[ext_resource type="PackedScene" uid="uid://21rub2jqncvr" path="res://characters/enemies/demon_eye/demon_eye.glb" id="1_ahaau"]
+
+[sub_resource type="Shader" id="Shader_4jtcl"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta11's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+uniform vec4 albedo : source_color;
+uniform float radius: hint_range(0.0, 1.0, 0.1);
+uniform vec4 circle_color: source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	vec3 world_vert = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float circle = 1.0 - step(radius, distance(UV, vec2(0.5)));
+	ALBEDO = (1.0 - circle) * ALBEDO + circle * circle_color.rgb;
+	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vj6yw"]
+render_priority = 0
+shader = SubResource("Shader_4jtcl")
+shader_parameter/albedo = Color(0.113725, 0.113725, 0.113725, 1)
+shader_parameter/radius = 0.0
+shader_parameter/circle_color = Color(1, 0.211765, 0.0980392, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[node name="demon_eye" instance=ExtResource("1_ahaau")]
+
+[node name="Icosphere" parent="." index="0"]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_vj6yw")

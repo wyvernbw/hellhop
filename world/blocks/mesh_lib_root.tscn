@@ -1,0 +1,473 @@
+[gd_scene load_steps=46 format=3 uid="uid://wnyfiiyymeqe"]
+
+[ext_resource type="Script" path="res://world/ground.gd" id="1_dgwui"]
+[ext_resource type="Material" uid="uid://dan0ugcvd18e2" path="res://world/blocks/bricks_1.tres" id="1_m26g6"]
+[ext_resource type="Script" path="res://world/ground_type.gd" id="2_78voh"]
+[ext_resource type="Material" uid="uid://c33bcphqlyot7" path="res://world/blocks/bricks_2.tres" id="4_2gsbs"]
+[ext_resource type="Texture2D" uid="uid://dt5rj81dnmnu1" path="res://world/blocks/ground.png" id="4_8is60"]
+[ext_resource type="Texture2D" uid="uid://daj6oxva7tf7v" path="res://world/blocks/column_1.png" id="4_y7jxs"]
+[ext_resource type="Texture2D" uid="uid://dhthpaq0hf1vn" path="res://world/blocks/bricks_3.png" id="5_5edh1"]
+[ext_resource type="Material" uid="uid://b35v4l54f7umm" path="res://world/blocks/skull_1.tres" id="5_083dt"]
+[ext_resource type="Texture2D" uid="uid://cm5f2qbt6wnn1" path="res://world/blocks/stalactite.png" id="5_q5ino"]
+[ext_resource type="Texture2D" uid="uid://cenuf5ulv1gv7" path="res://world/blocks/ground_2.png" id="5_qw6o8"]
+[ext_resource type="Texture2D" uid="uid://d00ebk46honk3" path="res://world/blocks/ground_3.png" id="6_gcw3f"]
+[ext_resource type="Texture2D" uid="uid://wu5jbx77xg1n" path="res://world/blocks/leaves.png" id="6_oqhe4"]
+[ext_resource type="Texture2D" uid="uid://bicqhlgygmbyy" path="res://world/blocks/leaves_2.png" id="7_lnoxv"]
+[ext_resource type="Material" uid="uid://cydqvmn71ktto" path="res://world/blocks/grass_sway.tres" id="7_shcoc"]
+[ext_resource type="Texture2D" uid="uid://up4gc3m8bseh" path="res://world/blocks/vines.png" id="8_tqodq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dhch2"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Resource" id="Resource_irsli"]
+script = ExtResource("2_78voh")
+ground_color = null
+ground_hit_color = null
+
+[sub_resource type="Resource" id="Resource_i5opv"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.909804, 0.454902, 0.211765, 1)
+ground_hit_color = Color(0.909804, 0.454902, 0.211765, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2sceo"]
+data = PackedVector3Array(-1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_drfeo"]
+size = Vector3(2, 2, 2)
+subdivide_width = 16
+subdivide_height = 16
+subdivide_depth = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7adew"]
+shading_mode = 0
+albedo_texture = ExtResource("4_8is60")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_ft8q4"]
+size = Vector2(2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rq565"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("5_q5ino")
+texture_filter = 0
+disable_receive_shadows = true
+billboard_mode = 2
+
+[sub_resource type="Shader" id="Shader_bapqy"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta11's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded,shadows_disabled;
+uniform vec4 albedo : source_color;
+uniform sampler2D wave_tex;
+uniform float wave_tex_size;
+uniform float wave_strength: hint_range(0.0, 10.0, 0.1);
+uniform float wave_speed: hint_range(0.0, 1.0, 0.1);
+uniform float wave_threshold: hint_range(0.0, 1.0, 0.1);
+uniform float wave_blur: hint_range(0.0, 1.0, 0.01);
+uniform vec4 wave_color: source_color;
+uniform float wave_color_strength: hint_range(0.0, 5.0, 0.1);
+uniform sampler2D texture_albedo : source_color,filter_nearest,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_nearest,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_nearest,repeat_enable;
+uniform float specular;
+uniform float metallic;
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+varying vec3 world_vertex;
+
+void vertex() {
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(NORMAL.z);
+	TANGENT = normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(NORMAL.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(NORMAL.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(NORMAL.z);
+	BINORMAL = normalize(BINORMAL);
+
+	vec3 world_vert = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	world_vertex = world_vert;
+	float wave_value = texture(wave_tex, (world_vert.xy / wave_tex_size + TIME * wave_speed)).r - 0.5; 
+	VERTEX.xz += wave_value * (1.0 - distance(vec3(0.5), VERTEX)) * wave_strength;
+	uv1_power_normal=pow(abs(NORMAL),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = VERTEX * uv1_scale + uv1_offset;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+
+
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	float wave_value = texture(wave_tex, world_vertex.xy / wave_tex_size + vec2(0.0, TIME)).r;
+	wave_value = smoothstep(wave_threshold - wave_blur, wave_threshold + wave_blur, wave_value);
+	ALBEDO = albedo.rgb * albedo_tex.rgb + wave_value * wave_color.rgb * wave_color_strength;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ude0i"]
+noise_type = 3
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dkuoj"]
+in_3d_space = true
+seamless = true
+noise = SubResource("FastNoiseLite_ude0i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0djyu"]
+render_priority = 0
+shader = SubResource("Shader_bapqy")
+shader_parameter/albedo = Color(1, 0.270588, 0.219608, 1)
+shader_parameter/wave_tex_size = 64.0
+shader_parameter/wave_strength = 1.0
+shader_parameter/wave_speed = 0.1
+shader_parameter/wave_threshold = 0.4
+shader_parameter/wave_blur = 1.0
+shader_parameter/wave_color = Color(0.803922, 0.360784, 0.0705882, 1)
+shader_parameter/wave_color_strength = 3.8
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Plane(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/wave_tex = SubResource("NoiseTexture2D_dkuoj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e71gi"]
+shading_mode = 0
+albedo_texture = ExtResource("5_qw6o8")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfqyy"]
+shading_mode = 0
+albedo_texture = ExtResource("6_gcw3f")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_41qgq"]
+size = Vector2(2, 2)
+orientation = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_otuaf"]
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2f43p"]
+shading_mode = 0
+albedo_texture = ExtResource("4_y7jxs")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="Resource" id="Resource_t2upf"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.909804, 0.454902, 0.211765, 1)
+ground_hit_color = Color(0.909804, 0.454902, 0.211765, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_p5q0a"]
+left_to_right = 1.0
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Resource" id="Resource_jvfnm"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.909804, 0.454902, 0.211765, 1)
+ground_hit_color = Color(0.909804, 0.454902, 0.211765, 1)
+
+[sub_resource type="Resource" id="Resource_0xxnv"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.403922, 0.223529, 0.192157, 1)
+ground_hit_color = null
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4wpd"]
+shading_mode = 0
+albedo_texture = ExtResource("5_5edh1")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="Resource" id="Resource_1l002"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.403922, 0.223529, 0.192157, 1)
+ground_hit_color = Color(0.403922, 0.223529, 0.192157, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrwdb"]
+shading_mode = 0
+albedo_texture = ExtResource("6_oqhe4")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="Resource" id="Resource_nohe2"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.34902, 0.811765, 0.576471, 1)
+ground_hit_color = Color(0.34902, 0.811765, 0.576471, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4qcg"]
+shading_mode = 0
+albedo_texture = ExtResource("7_lnoxv")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="Resource" id="Resource_le3hy"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.698039, 0.321569, 0.4, 1)
+ground_hit_color = Color(0.698039, 0.321569, 0.4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02nly"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("8_tqodq")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_yfnjh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Resource" id="Resource_7a73d"]
+script = ExtResource("2_78voh")
+ground_color = Color(0.827451, 0.592157, 0.254902, 1)
+ground_hit_color = Color(0.827451, 0.592157, 0.254902, 1)
+
+[node name="MeshLibRoot" type="Node3D"]
+
+[node name="Bricks1" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = ExtResource("1_m26g6")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bricks1"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_i5opv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bricks1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Ground1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 2)
+mesh = SubResource("BoxMesh_drfeo")
+surface_material_override/0 = SubResource("StandardMaterial3D_7adew")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground1"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_i5opv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Ground4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 7, 2)
+mesh = SubResource("QuadMesh_ft8q4")
+surface_material_override/0 = SubResource("StandardMaterial3D_rq565")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground4"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_i5opv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Lava1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+mesh = SubResource("BoxMesh_drfeo")
+surface_material_override/0 = SubResource("ShaderMaterial_0djyu")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="Ground2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+mesh = SubResource("BoxMesh_drfeo")
+surface_material_override/0 = SubResource("StandardMaterial3D_e71gi")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground2"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_i5opv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Ground3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 6)
+mesh = SubResource("BoxMesh_drfeo")
+surface_material_override/0 = SubResource("StandardMaterial3D_jfqyy")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground3"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_i5opv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Grass2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+mesh = SubResource("QuadMesh_41qgq")
+surface_material_override/0 = ExtResource("7_shcoc")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+mesh = SubResource("QuadMesh_otuaf")
+surface_material_override/0 = ExtResource("7_shcoc")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="Column1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = SubResource("StandardMaterial3D_2f43p")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Column1"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_t2upf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Column1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="BricksSlope1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("PrismMesh_p5q0a")
+surface_material_override/0 = ExtResource("1_m26g6")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="BricksSlope1"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_jvfnm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BricksSlope1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Bricks2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = ExtResource("4_2gsbs")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bricks2"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_0xxnv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bricks2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Bricks3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = SubResource("StandardMaterial3D_j4wpd")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bricks3"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_1l002")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bricks3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Leaves" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = SubResource("StandardMaterial3D_mrwdb")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leaves"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_nohe2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leaves/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Leaves2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = SubResource("StandardMaterial3D_f4qcg")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Leaves2"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_le3hy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leaves2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")
+
+[node name="Vines" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6)
+mesh = SubResource("BoxMesh_dhch2")
+surface_material_override/0 = SubResource("StandardMaterial3D_02nly")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="Skull1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+mesh = SubResource("BoxMesh_yfnjh")
+surface_material_override/0 = ExtResource("5_083dt")
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_irsli")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Skull1"]
+script = ExtResource("1_dgwui")
+ground_type = SubResource("Resource_7a73d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skull1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2sceo")

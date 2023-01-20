@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://k8a17ntjr1vb"]
+
+[ext_resource type="PackedScene" uid="uid://bifuk3vdongyb" path="res://characters/cheese_puffs/shibe.glb" id="1_e2bjt"]
+
+[node name="CheesePuffs" instance=ExtResource("1_e2bjt")]
+
+[node name="BoneAttachment3D" parent="Armature/Skeleton3D3" index="0"]
+transform = Transform3D(1, 0, 0, 0, -0.855471, 0.517851, 0, -0.517851, -0.855471, -0.0267304, 2.67559, -0.737678)
+bone_idx = 0

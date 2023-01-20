@@ -17,10 +17,11 @@ func appear(results: Level.LevelResult) -> void:
 	time_value.text = "%.3f" % results.time
 	time_fade_in.play()
 	await time_fade_in.animation_finished
-	var rank_label = ranks[results.badge].instantiate()
-	rank_list.add_child(rank_label)	
-	if results.speed_demon:
+	if not results.badge == Times.Badge.NA:
+		var rank_label = ranks[results.badge].instantiate()
+		rank_list.add_child(rank_label)	
 		await rank_label.get_node('%Anim').animation_finished
+	if results.speed_demon:
 		var speed_demon = ranks[Times.Badge.SPEED_DEMON].instantiate()
 		rank_list.add_child(speed_demon)
 

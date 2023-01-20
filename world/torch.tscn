@@ -57,14 +57,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_q8qxl")
 modulate = Color(1, 0.352941, 0.0666667, 0.258824)
 
 [node name="GPUParticles3D" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477605, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.629943, 0)
 layers = 2
-lifetime = 0.6
+lifetime = 0.8
 randomness = 1.0
 mesh = SubResource("QuadMesh_twhex")
 gravity = Vector3(0, 3, 0)
-scale_amount_min = 0.2
-scale_amount_max = 0.6
+scale_amount_min = 0.5
+scale_amount_max = 0.9
 scale_amount_curve = SubResource("Curve_klxgi")
 color_ramp = SubResource("Gradient_at4n1")
 

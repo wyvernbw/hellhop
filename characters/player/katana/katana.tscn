@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://6cahsfs20upy"]
+[gd_scene load_steps=49 format=3 uid="uid://6cahsfs20upy"]
 
 [ext_resource type="Script" path="res://characters/player/katana/katana.gd" id="1_l6cr6"]
 [ext_resource type="PackedScene" uid="uid://cr2byro0mrn0y" path="res://characters/player/katana/katana_colored.tscn" id="1_quq2r"]
@@ -30,6 +30,49 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 2.0944, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qdwkr"]
+resource_name = "execute_begin"
+length = 0.5
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaColored/Anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("execute_begin"),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_5indp"]
+resource_name = "execute_end"
+length = 0.15
+step = 0.05
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaColored/Anim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("execute_end"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"finished"],
+"method": &"emit_signal"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_rgcfk"]
@@ -66,17 +109,17 @@ tracks/1/path = NodePath("Anim/Behaviours")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": PackedStringArray("slash"),
+"clips": PackedStringArray("line_right"),
 "times": PackedFloat32Array(0)
 }
 tracks/2/type = "animation"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Anim/Behaviours")
+tracks/2/path = NodePath("Anim/Behaviours2")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": PackedStringArray("line_right"),
+"clips": PackedStringArray("slash"),
 "times": PackedFloat32Array(0)
 }
 
@@ -100,17 +143,17 @@ tracks/1/path = NodePath("Anim/Behaviours")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": PackedStringArray("slash"),
+"clips": PackedStringArray("line_left"),
 "times": PackedFloat32Array(0)
 }
 tracks/2/type = "animation"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Anim/Behaviours")
+tracks/2/path = NodePath("Anim/Behaviours2")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": PackedStringArray("line_left"),
+"clips": PackedStringArray("slash"),
 "times": PackedFloat32Array(0)
 }
 
@@ -134,17 +177,17 @@ tracks/1/path = NodePath("Anim/Behaviours")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"clips": PackedStringArray("slash"),
+"clips": PackedStringArray("line_left"),
 "times": PackedFloat32Array(0)
 }
 tracks/2/type = "animation"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Anim/Behaviours")
+tracks/2/path = NodePath("Anim/Behaviours2")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"clips": PackedStringArray("line_left"),
+"clips": PackedStringArray("slash"),
 "times": PackedFloat32Array(0)
 }
 
@@ -176,34 +219,46 @@ tracks/1/keys = {
 "values": [Vector3(1.04668, 2.23587, 1.61953), Vector3(0, 2.0944, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_tne8y"]
+resource_name = "zip"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaColored:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0, 2.0944, 0), Vector3(1.04357, 2.35904, 1.69986)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KatanaColored:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.214882, 0.315245, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0d3uj"]
 _data = {
 "RESET": SubResource("Animation_ts0po"),
 "crouch": ExtResource("2_uxqya"),
+"execute_begin": SubResource("Animation_qdwkr"),
+"execute_end": SubResource("Animation_5indp"),
 "idle": SubResource("Animation_rgcfk"),
 "slash_1": SubResource("Animation_sylha"),
 "slash_2": SubResource("Animation_oxamu"),
 "slash_3": SubResource("Animation_qxljn"),
-"stand_up": SubResource("Animation_3lht7")
-}
-
-[sub_resource type="Animation" id="Animation_ys6ik"]
-resource_name = "slash"
-length = 0.3
-step = 0.05
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.25),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"finished"],
-"method": &"emit_signal"
-}]
+"stand_up": SubResource("Animation_3lht7"),
+"zip": SubResource("Animation_tne8y")
 }
 
 [sub_resource type="Animation" id="Animation_eh8js"]
@@ -233,23 +288,6 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_rp4iu"]
-resource_name = "line_right"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../CanvasLayer/Right:width")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 20.0, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_ylyy4"]
 resource_name = "line_left"
 length = 0.2
@@ -267,6 +305,42 @@ tracks/0/keys = {
 "values": [0.0, 20.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_rp4iu"]
+resource_name = "line_right"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CanvasLayer/Right:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 20.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ys6ik"]
+resource_name = "slash"
+length = 0.3
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"finished"],
+"method": &"emit_signal"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cidc3"]
 _data = {
 "RESET": SubResource("Animation_eh8js"),
@@ -277,6 +351,12 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_su1w3"]
 animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hkrmc"]
+animation = &"execute_begin"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u4g0d"]
+animation = &"execute_end"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_slwc4"]
 animation = &"idle"
@@ -292,6 +372,9 @@ animation = &"slash_3"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r3rac"]
 animation = &"stand_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ptb82"]
+animation = &"zip"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_246v4"]
 switch_mode = 2
@@ -342,11 +425,31 @@ advance_mode = 0
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dt703"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ihk2e"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a4lmj"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j7sm7"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wtxcm"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_4r31t"]
-states/End/position = Vector2(407, -37)
+states/End/position = Vector2(610, -37)
 states/Start/position = Vector2(283, 35)
 states/crouch/node = SubResource("AnimationNodeAnimation_su1w3")
 states/crouch/position = Vector2(202, -181)
+states/execute_begin/node = SubResource("AnimationNodeAnimation_hkrmc")
+states/execute_begin/position = Vector2(537, 111)
+states/execute_end/node = SubResource("AnimationNodeAnimation_u4g0d")
+states/execute_end/position = Vector2(537, 20)
 states/idle/node = SubResource("AnimationNodeAnimation_slwc4")
 states/idle/position = Vector2(283, -37)
 states/slash_1/node = SubResource("AnimationNodeAnimation_c6oaq")
@@ -357,13 +460,14 @@ states/slash_3/node = SubResource("AnimationNodeAnimation_rnrlj")
 states/slash_3/position = Vector2(-3, -129)
 states/stand_up/node = SubResource("AnimationNodeAnimation_r3rac")
 states/stand_up/position = Vector2(382, -181)
-transitions = ["slash_1", "slash_2", SubResource("AnimationNodeStateMachineTransition_246v4"), "slash_2", "slash_3", SubResource("AnimationNodeStateMachineTransition_evi1v"), "slash_1", "idle", SubResource("AnimationNodeStateMachineTransition_ei82t"), "slash_2", "idle", SubResource("AnimationNodeStateMachineTransition_3rxq1"), "slash_3", "idle", SubResource("AnimationNodeStateMachineTransition_04r7p"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_o502r"), "idle", "slash_1", SubResource("AnimationNodeStateMachineTransition_3kk3d"), "idle", "slash_3", SubResource("AnimationNodeStateMachineTransition_bhxgu"), "idle", "slash_2", SubResource("AnimationNodeStateMachineTransition_eld31"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_8mrw3"), "crouch", "stand_up", SubResource("AnimationNodeStateMachineTransition_4cuax"), "stand_up", "idle", SubResource("AnimationNodeStateMachineTransition_k6ryd")]
-graph_offset = Vector2(-274, -229)
+states/zip/node = SubResource("AnimationNodeAnimation_ptb82")
+states/zip/position = Vector2(501, -104)
+transitions = ["slash_1", "slash_2", SubResource("AnimationNodeStateMachineTransition_246v4"), "slash_2", "slash_3", SubResource("AnimationNodeStateMachineTransition_evi1v"), "slash_1", "idle", SubResource("AnimationNodeStateMachineTransition_ei82t"), "slash_2", "idle", SubResource("AnimationNodeStateMachineTransition_3rxq1"), "slash_3", "idle", SubResource("AnimationNodeStateMachineTransition_04r7p"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_o502r"), "idle", "slash_1", SubResource("AnimationNodeStateMachineTransition_3kk3d"), "idle", "slash_3", SubResource("AnimationNodeStateMachineTransition_bhxgu"), "idle", "slash_2", SubResource("AnimationNodeStateMachineTransition_eld31"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_8mrw3"), "crouch", "stand_up", SubResource("AnimationNodeStateMachineTransition_4cuax"), "stand_up", "idle", SubResource("AnimationNodeStateMachineTransition_k6ryd"), "idle", "zip", SubResource("AnimationNodeStateMachineTransition_dt703"), "zip", "idle", SubResource("AnimationNodeStateMachineTransition_ihk2e"), "idle", "execute_begin", SubResource("AnimationNodeStateMachineTransition_a4lmj"), "execute_begin", "execute_end", SubResource("AnimationNodeStateMachineTransition_j7sm7"), "execute_end", "idle", SubResource("AnimationNodeStateMachineTransition_wtxcm")]
+graph_offset = Vector2(-163, -205)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_71770"]
 
 [node name="Katana" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_l6cr6")
 anim_tree_path = NodePath("KatanaAnimationTree")
 
@@ -378,12 +482,16 @@ libraries = {
 "": SubResource("AnimationLibrary_cidc3")
 }
 
+[node name="Behaviours2" type="AnimationPlayer" parent="Anim"]
+libraries = {
+"": SubResource("AnimationLibrary_cidc3")
+}
+
 [node name="KatanaColored" parent="." instance=ExtResource("1_quq2r")]
 transform = Transform3D(-0.0500004, 0, 0.0866022, 0, 0.1, 0, -0.0866022, 0, -0.0500004, 0, 0, 0)
 
-[node name="Skeleton3D" parent="KatanaColored/KatanaRig" index="0"]
-bones/0/rotation = Quaternion(0.48541, -0.234996, 0.0664113, 0.83949)
-bones/0/scale = Vector3(10, 10, 10)
+[node name="KatanaRig" parent="KatanaColored" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="Anim" parent="KatanaColored" index="3"]
 autoplay = "idle"
@@ -408,5 +516,8 @@ width = 0.0
 texture_filter = 1
 position = Vector2(256, 128)
 texture = ExtResource("4_c5kse")
+
+[connection signal="animation_finished" from="Anim/Behaviours" to="." method="_on_behaviours_animation_finished"]
+[connection signal="animation_finished" from="Anim/Behaviours2" to="." method="_on_behaviours_animation_finished"]
 
 [editable path="KatanaColored"]

@@ -21,7 +21,8 @@ func _ready():
 	var level_data = data[level_name]
 	print_debug("level_data: %s" % level_data)
 	$'%Time'.text = "%.3f" % level_data.time
-	badges[level_data.badge].show()
+	if not level_data.badge == Times.Badge.NA:
+		badges[level_data.badge].show()
 	if level_data.speed_demon:
 		badges[Times.Badge.SPEED_DEMON].show()
 

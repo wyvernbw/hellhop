@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cegeep1t2f880"]
+
+[ext_resource type="PackedScene" uid="uid://bnusls6cc1u1m" path="res://characters/jin/oldman.glb" id="1_t4ojw"]
+
+[node name="oldman" instance=ExtResource("1_t4ojw")]

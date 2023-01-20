@@ -1,6 +1,8 @@
 class_name Level
 extends Node3D
 
+signal started
+
 @export var level_name: String
 @export var player_path: NodePath
 @export var times: Times
@@ -11,6 +13,7 @@ extends Node3D
 
 var level_time = 0.0
 var timer_stopped = false
+var timing_began = false
 
 class LevelResult extends Node:
 	var time = 0.0
@@ -31,8 +34,17 @@ func _ready():
 	clear_menu.hide()
 	for end in get_tree().get_nodes_in_group("end_of_level"):
 		end.body_entered.connect(end_reached)
+		end.body_entered.connect(player.on_end_reached)
 
 func _process(delta):
+	if not timing_began:
+		if not player.move_sm.current_state is Player.IdleState:
+			timing_began = true
+			started.emit()
+		if not player.combat_sm.current_state is Player.CombatIdle:
+			timing_began = true
+			started.emit()
+		return
 	if not timer_stopped:
 		level_time += delta
 	time_label.text = "time: %.3f" % level_time

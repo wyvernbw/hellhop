@@ -1,33 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgixtatwkdsb4"]
+[gd_scene load_steps=2 format=3 uid="uid://cgixtatwkdsb4"]
 
-[sub_resource type="Gradient" id="Gradient_ddpwj"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.245283, 0.415094, 0.600629, 0.779874, 1)
-colors = PackedColorArray(0.203922, 0.141176, 0.176471, 1, 0.404883, 0.226997, 0.248959, 1, 0.554753, 0.354709, 0.312952, 1, 0.743284, 0.522256, 0.402519, 1, 0.870588, 0.635294, 0.462745, 1, 0.894118, 0.721569, 0.513726, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1av0f"]
-gradient = SubResource("Gradient_ddpwj")
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3kp8d"]
-panorama = SubResource("GradientTexture2D_1av0f")
-filter = false
-
-[sub_resource type="Sky" id="Sky_1o15s"]
-sky_material = SubResource("PanoramaSkyMaterial_3kp8d")
-
-[sub_resource type="Environment" id="Environment_ujgc8"]
-background_mode = 2
-background_color = Color(0.635294, 0.615686, 0.615686, 1)
-sky = SubResource("Sky_1o15s")
+[sub_resource type="Environment" id="Environment_iwybg"]
+background_mode = 1
+background_color = Color(0.164706, 0.117647, 0.137255, 1)
+ambient_light_color = Color(0.164706, 0.117647, 0.137255, 1)
 tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true
-fog_light_color = Color(0.870588, 0.501961, 0.45098, 1)
-fog_density = 0.0053
-fog_aerial_perspective = 0.474
-fog_sky_affect = 0.527
+fog_light_color = Color(0.164706, 0.117647, 0.137255, 1)
+fog_density = 0.0267
 
 [node name="WorldEnvironment" type="WorldEnvironment"]
-environment = SubResource("Environment_ujgc8")
+environment = SubResource("Environment_iwybg")

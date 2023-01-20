@@ -149,17 +149,17 @@ frequency = 0.057
 cellular_jitter = 0.5
 cellular_return_type = 6
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0te8v"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6hjor"]
 noise = SubResource("FastNoiseLite_eygrp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mc1c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8tb64"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_adynf")
 shader_parameter/threshold = 0.64
 shader_parameter/threshold_min = 0.64
 shader_parameter/speed = 0.05
-shader_parameter/tex = SubResource("NoiseTexture2D_0te8v")
+shader_parameter/tex = SubResource("NoiseTexture2D_6hjor")
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_dfqw8"]
 
@@ -231,7 +231,7 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.50394, 0.0, 0, 0]
 point_count = 2
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_mask = 2
 script = ExtResource("1_js1hu")
 jump_velocity = 25.0
@@ -253,47 +253,50 @@ unique_name_in_owner = true
 
 [node name="GroundParticles" type="Node3D" parent="Head"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16469, -0.290093)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.337677, -1.42072)
 
 [node name="Left" type="CPUParticles3D" parent="Head/GroundParticles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.340906, -0.774468, -0.718526)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.777855, -0.774468, -0.718526)
 material_override = SubResource("StandardMaterial3D_hegt8")
 emitting = false
 amount = 48
 local_coords = true
 mesh = SubResource("PlaneMesh_ewjkb")
-direction = Vector3(-1, 1, 0)
-flatness = 1.0
+direction = Vector3(-1, 1, 1)
+spread = 30.0
+flatness = 0.6
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 scale_amount_max = 2.0
 
 [node name="Right" type="CPUParticles3D" parent="Head/GroundParticles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.406115, -0.774468, -0.718526)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.764396, -0.774468, -0.718526)
 material_override = SubResource("StandardMaterial3D_hegt8")
 emitting = false
 amount = 48
 local_coords = true
 mesh = SubResource("PlaneMesh_ewjkb")
-direction = Vector3(1, 1, 0)
-flatness = 1.0
+direction = Vector3(1, 1, 1)
+spread = 30.0
+flatness = 0.6
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
+scale_amount_max = 2.0
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Head"]
 spring_length = 0.5
-margin = 0.5
+margin = 0.75
 
 [node name="Camera3D" type="Camera3D" parent="Head/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.715687)
 current = true
-fov = 100.0
+fov = 110.0
 size = 10.0
 
 [node name="WindMesh" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("3_4fdej")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.02457)
-material_override = SubResource("ShaderMaterial_1mc1c")
+material_override = SubResource("ShaderMaterial_8tb64")
 skeleton = NodePath("../../..")
 
 [node name="Katana" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("6_nrgi8")]
@@ -306,9 +309,6 @@ blend_times = [&"slash_1", &"idle", 0.5, &"idle", &"slash_1", 0.5, &"idle", &"id
 [node name="KatanaColored" parent="Head/SpringArm3D/Camera3D/Katana" index="1"]
 transform = Transform3D(-0.0500004, 0, 0.0866022, 0, 0.1, 0, -0.0866022, 0, -0.0500004, 0, 0, 0)
 
-[node name="Skeleton3D" parent="Head/SpringArm3D/Camera3D/Katana/KatanaColored/KatanaRig" index="0"]
-bones/0/rotation = Quaternion(0.793035, -0.288389, -0.342534, -0.413034)
-
 [node name="KatanaAnimationTree" parent="Head/SpringArm3D/Camera3D/Katana" index="2"]
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dfqw8")
 
@@ -316,6 +316,7 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dfqw8")
 unique_name_in_owner = true
 target_position = Vector3(0, -1, -100)
 collision_mask = 6
+hit_from_inside = true
 
 [node name="SlideBoostCooldown" type="Timer" parent="."]
 one_shot = true
@@ -371,6 +372,17 @@ offset_right = 448.0
 offset_bottom = 39.0
 theme = ExtResource("8_6440i")
 
+[node name="Frame" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(256, 128)
+scale = Vector2(2, 2)
+texture = ExtResource("2_h5tyt")
+
+[node name="Cursor" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(256, 128)
+texture = ExtResource("5_g36a7")
+
 [node name="WallDetectors" type="Node3D" parent="."]
 
 [node name="Right" type="RayCast3D" parent="WallDetectors"]
@@ -404,20 +416,6 @@ transform = Transform3D(606.419, 0, 0, 0, 606.419, 0, 0, 0, 606.419, 0, 0, 0)
 mesh = SubResource("SphereMesh_getxm")
 surface_material_override/0 = SubResource("StandardMaterial3D_r0iaf")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="Frame" type="Sprite2D" parent="CanvasLayer2"]
-texture_filter = 1
-position = Vector2(256, 128)
-scale = Vector2(2, 2)
-texture = ExtResource("2_h5tyt")
-
-[node name="Cursor" type="Sprite2D" parent="CanvasLayer2"]
-texture_filter = 1
-position = Vector2(256, 128)
-texture = ExtResource("5_g36a7")
-
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
@@ -448,8 +446,14 @@ wait_time = 0.3
 one_shot = true
 
 [node name="WallCoyoteTime" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
+
+[node name="ZiplineAttachPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="PlayerPoint" type="Marker3D" parent="ZiplineAttachPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [editable path="Head/SpringArm3D/Camera3D/Katana"]
 [editable path="Head/SpringArm3D/Camera3D/Katana/KatanaColored"]

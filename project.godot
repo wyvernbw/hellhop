@@ -9,6 +9,16 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Enemy",
+"class": &"DemonEye",
+"language": &"GDScript",
+"path": "res://characters/enemies/demon_eye/demon_eye.gd"
+}, {
+"base": "CharacterBody3D",
+"class": &"Enemy",
+"language": &"GDScript",
+"path": "res://characters/enemies/enemy.gd"
+}, {
 "base": "Node3D",
 "class": &"Ground",
 "language": &"GDScript",
@@ -24,10 +34,20 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://world/levels/level.gd"
 }, {
+"base": "Node",
+"class": &"Maybe",
+"language": &"GDScript",
+"path": "res://share/maybe/maybe.gd"
+}, {
 "base": "CharacterBody3D",
 "class": &"Player",
 "language": &"GDScript",
 "path": "res://characters/player/player.gd"
+}, {
+"base": "Node",
+"class": &"Result",
+"language": &"GDScript",
+"path": "res://share/maybe/result.gd"
 }, {
 "base": "Resource",
 "class": &"Times",
@@ -43,15 +63,31 @@ _global_script_classes=[{
 "class": &"Wisp",
 "language": &"GDScript",
 "path": "res://share/wisp/wisp.gd"
+}, {
+"base": "Node3D",
+"class": &"ZipLine",
+"language": &"GDScript",
+"path": "res://world/zipline/zipline.gd"
+}, {
+"base": "CSGBox3D",
+"class": &"ZipPole",
+"language": &"GDScript",
+"path": "res://world/zipline/zip_pole.gd"
 }]
 _global_script_class_icons={
+"DemonEye": "",
+"Enemy": "",
 "Ground": "",
 "GroundType": "",
 "Level": "",
+"Maybe": "",
 "Player": "",
+"Result": "",
 "Times": "",
 "TransitionButton": "",
-"Wisp": ""
+"Wisp": "",
+"ZipLine": "",
+"ZipPole": ""
 }
 
 [application]
@@ -65,6 +101,7 @@ config/icon="res://icon.svg"
 
 GameSaver="*res://share/game_saver.gd"
 Transition="*res://gui/transition.tscn"
+Slowmo="*res://share/effects/slowmo.gd"
 
 [display]
 
@@ -77,6 +114,28 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/channel_pack": 0,
+"compress/hdr_compression": 1,
+"compress/lossy_quality": 0.7,
+"compress/mode": 3,
+"compress/normal_map": 0,
+"detect_3d/compress_to": 0,
+"mipmaps/generate": false,
+"mipmaps/limit": -1,
+"process/fix_alpha_border": true,
+"process/hdr_as_srgb": false,
+"process/hdr_clamp_exposure": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"process/size_limit": 0,
+"roughness/mode": 0,
+"roughness/src_normal": ""
+}
 
 [input]
 
@@ -130,6 +189,16 @@ dash_right={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"unicode":0,"echo":false,"script":null)
 ]
 }
+execute={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
+]
+}
+help={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -138,12 +207,16 @@ dash_right={
 
 [physics]
 
+3d/run_on_separate_thread=true
 common/physics_ticks_per_second=200
 3d/default_gravity=60.0
 
 [rendering]
 
+occlusion_culling/bvh_build_quality=1
+driver/threads/thread_model=0
 textures/default_filters/use_nearest_mipmap_filter=true
+textures/default_filters/anisotropic_filtering_level=1
 textures/decals/filter=2
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 2d/snap/snap_2d_transforms_to_pixel=true

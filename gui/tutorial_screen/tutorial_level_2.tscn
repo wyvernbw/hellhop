@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://smuj0ccmlip7"]
+
+[ext_resource type="PackedScene" uid="uid://c327vhs47ioqm" path="res://gui/tutorial_screen/tutorial.tscn" id="1_dlhxn"]
+
+[node name="TutorialLevel2" instance=ExtResource("1_dlhxn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "q / e - side dash
+press space near a zipline to zip
+"
+autowrap_mode = 2

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://76qibrep83fg"]
+
+[ext_resource type="Script" path="res://world/zipline/zipline.gd" id="1_a7v2b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcn3s"]
+shading_mode = 0
+
+[sub_resource type="Curve3D" id="Curve3D_aiur1"]
+
+[node name="Zipline" type="Node3D"]
+script = ExtResource("1_a7v2b")
+
+[node name="Line" type="CSGPolygon3D" parent="."]
+polygon = PackedVector2Array(-0.1, 0.4, -0.1, 0.6, 0.1, 0.6, 0.1, 0.4)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 1
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 1
+path_local = false
+path_continuous_u = false
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_gcn3s")
+
+[node name="Path3D" type="Path3D" parent="Line"]
+unique_name_in_owner = true
+curve = SubResource("Curve3D_aiur1")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Line/Path3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 2.74832, 6.84602, -6.35781)
+rotation_mode = 1
+loop = false
+
+[node name="RT" type="RemoteTransform3D" parent="Line/Path3D/PathFollow3D"]
+unique_name_in_owner = true

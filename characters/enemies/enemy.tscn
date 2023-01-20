@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://owhkgfll5uru"]
+
+[ext_resource type="Script" path="res://characters/enemies/enemy.gd" id="1_f7rip"]
+[ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_4033x"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5njxy"]
+radius = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knm12"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.113725, 0.113725, 0.113725, 1)
+albedo_texture = ExtResource("2_4033x")
+texture_filter = 0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_b4p10"]
+material = SubResource("StandardMaterial3D_knm12")
+
+[sub_resource type="Curve" id="Curve_h0r4h"]
+_data = [Vector2(0.78022, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -9.67906, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_4q24p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExecuteLine:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fg7pf"]
+resource_name = "execute"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExecuteLine:mesh:size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h212f"]
+_data = {
+"RESET": SubResource("Animation_4q24p"),
+"execute": SubResource("Animation_fg7pf")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_dmgif"]
+size = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wh65n"]
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+billboard_mode = 2
+billboard_keep_scale = true
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+script = ExtResource("1_f7rip")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.680287, 0)
+shape = SubResource("SphereShape3D_5njxy")
+
+[node name="HitParticles" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("QuadMesh_b4p10")
+spread = 180.0
+initial_velocity_max = 55.55
+damping_min = 13.19
+damping_max = 13.19
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_h0r4h")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_h212f")
+}
+
+[node name="ExecuteLine" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.000401418, 0, 8.965, 0, 8.965, 0, -9183.38, 0, -3.91873e-07, 0, 0, 0)
+mesh = SubResource("BoxMesh_dmgif")
+surface_material_override/0 = SubResource("StandardMaterial3D_wh65n")
