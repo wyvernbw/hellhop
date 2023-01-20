@@ -152,7 +152,7 @@ cellular_return_type = 6
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6hjor"]
 noise = SubResource("FastNoiseLite_eygrp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8tb64"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvj1w"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_adynf")
@@ -296,7 +296,7 @@ size = 10.0
 [node name="WindMesh" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("3_4fdej")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.02457)
-material_override = SubResource("ShaderMaterial_8tb64")
+material_override = SubResource("ShaderMaterial_mvj1w")
 skeleton = NodePath("../../..")
 
 [node name="Katana" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("6_nrgi8")]

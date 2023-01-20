@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://4pr6bc3t64vo"]
+
+[ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_name_label.gd" id="1_t8kd6"]
+[ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_dialog_text.gd" id="2_ohmjo"]
+[ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_next_indicator.gd" id="3_jupj0"]
+[ext_resource type="FontFile" uid="uid://3uo8vp45m3e5" path="res://gui/fonts/Quicksand-Bold.otf" id="3_ns16q"]
+[ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_input_handler.gd" id="4_q2s5f"]
+[ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_type_sound.gd" id="5_2js1c"]
+
+[sub_resource type="Theme" id="Theme_amu8d"]
+default_font = ExtResource("3_ns16q")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8ylm"]
+bg_color = Color(0, 0, 0, 0.65098)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="GUIDialogue" type="CanvasLayer"]
+
+[node name="DialogicNode_InputHandler" type="Node" parent="."]
+script = ExtResource("4_q2s5f")
+
+[node name="DialogicNode_TypeSounds" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_2js1c")
+sounds = []
+
+[node name="Theme" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_amu8d")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextBox" type="MarginContainer" parent="Theme"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -144.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Theme/TextBox"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Theme/TextBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DialogicNode_NameLabel" type="Label" parent="Theme/TextBox/HBoxContainer/VBox"]
+layout_mode = 2
+text = "some guy"
+script = ExtResource("1_t8kd6")
+
+[node name="PanelContainer" type="PanelContainer" parent="Theme/TextBox/HBoxContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_b8ylm")
+
+[node name="MarginContainer" type="MarginContainer" parent="Theme/TextBox/HBoxContainer/VBox/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="DialogicNode_DialogText" type="RichTextLabel" parent="Theme/TextBox/HBoxContainer/VBox/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "ayoo
+"
+script = ExtResource("2_ohmjo")
+
+[node name="DNextIndicator" type="Control" parent="Theme/TextBox/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_jupj0")

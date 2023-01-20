@@ -9,10 +9,290 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node",
+"class": &"CustomEventConverter",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Converter/custom_event_converter.gd"
+}, {
+"base": "RefCounted",
+"class": &"DCSS",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Editor/Common/DCSS.gd"
+}, {
+"base": "Control",
+"class": &"DNextIndicator",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/node_next_indicator.gd"
+}, {
 "base": "Enemy",
 "class": &"DemonEye",
 "language": &"GDScript",
 "path": "res://characters/enemies/demon_eye/demon_eye.gd"
+}, {
+"base": "Node",
+"class": &"DialogicAnimation",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/class_dialogic_animation.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicBackgroundEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Background/event_background.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicCallNodeEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Call Node/event_call_node.gd"
+}, {
+"base": "Resource",
+"class": &"DialogicCharacter",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/character.gd"
+}, {
+"base": "Control",
+"class": &"DialogicCharacterEditorMainTab",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Editor/CharacterEditor/character_editor_main_tab.gd"
+}, {
+"base": "ScrollContainer",
+"class": &"DialogicCharacterEditorPortraitSettingsTab",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Editor/CharacterEditor/character_editor_portrait_settings_tab.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicCharacterEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/event_character.gd"
+}, {
+"base": "ResourceFormatLoader",
+"class": &"DialogicCharacterFormatLoader",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/CharacterResourceLoader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": &"DialogicCharacterFormatSaver",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/CharacterResourceSaver.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicChoiceEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Choice/event_choice.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicCommentEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Comment/event_comment.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicConditionEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Condition/event_condition.gd"
+}, {
+"base": "Node",
+"class": &"DialogicDefaultPortrait",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/default_portrait.gd"
+}, {
+"base": "Control",
+"class": &"DialogicEditor",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Editor/dialogic_editor.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicEndBranchEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/End Branch/event_end_branch.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicEndTimelineEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/End/event_end.gd"
+}, {
+"base": "Resource",
+"class": &"DialogicEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/event.gd"
+}, {
+"base": "Resource",
+"class": &"DialogicGlossary",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Glossary/glossary_resource.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicGlossaryEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Glossary/event_glossary.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicHistoryEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/History/event_history.gd"
+}, {
+"base": "RefCounted",
+"class": &"DialogicIndexer",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Other/index_class.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicJumpEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Jump/event_jump.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicLabelEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Jump/event_label.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicMusicEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Audio/event_music.gd"
+}, {
+"base": "CanvasLayer",
+"class": &"DialogicNode_BackgroundHolder",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Background/node_background_holder.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": &"DialogicNode_ButtonSound",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Choice/node_button_sound.gd"
+}, {
+"base": "Button",
+"class": &"DialogicNode_ChoiceButton",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Choice/node_choice_button.gd"
+}, {
+"base": "RichTextLabel",
+"class": &"DialogicNode_DialogText",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/node_dialog_text.gd"
+}, {
+"base": "Node",
+"class": &"DialogicNode_InputHandler",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/node_input_handler.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": &"DialogicNode_MusicPlayer",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Audio/node_music_player.gd"
+}, {
+"base": "Label",
+"class": &"DialogicNode_NameLabel",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/node_name_label.gd"
+}, {
+"base": "CanvasLayer",
+"class": &"DialogicNode_PortraitHolder",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/node_portrait_holder.gd"
+}, {
+"base": "Marker2D",
+"class": &"DialogicNode_PortraitPosition",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/node_portrait_position.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": &"DialogicNode_SoundPlayer",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Audio/node_sound_player.gd"
+}, {
+"base": "Control",
+"class": &"DialogicNode_Style",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Style/node_style.gd"
+}, {
+"base": "Control",
+"class": &"DialogicNode_TextInput",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/TextInput/node_text_input.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": &"DialogicNode_TypeSounds",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/node_type_sound.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": &"DialogicNode_VoicePlayer",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Voice/node_voice_player.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicPositionEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Character/event_position.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicSaveEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Save/event_save.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicSignalEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Signal/event_signal.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicSoundEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Audio/event_sound.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicStyleEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Style/event_style.gd"
+}, {
+"base": "Node",
+"class": &"DialogicSubsystem",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Other/Dialogic_Subsystem.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicTextEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Text/event_text.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicTextInputEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/TextInput/event_text_input.gd"
+}, {
+"base": "Resource",
+"class": &"DialogicTimeline",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/timeline.gd"
+}, {
+"base": "ResourceFormatLoader",
+"class": &"DialogicTimelineFormatLoader",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/TimelineResourceLoader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": &"DialogicTimelineFormatSaver",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Resources/TimelineResourceSaver.gd"
+}, {
+"base": "RefCounted",
+"class": &"DialogicUtil",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Other/DialogicUtil.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicVariableEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Variable/event_variable.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicVoiceEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Voice/event_voice.gd"
+}, {
+"base": "DialogicEvent",
+"class": &"DialogicWaitEvent",
+"language": &"GDScript",
+"path": "res://addons/dialogic/Events/Wait/event_wait.gd"
 }, {
 "base": "CharacterBody3D",
 "class": &"Enemy",
@@ -75,7 +355,63 @@ _global_script_classes=[{
 "path": "res://world/zipline/zip_pole.gd"
 }]
 _global_script_class_icons={
+"CustomEventConverter": "",
+"DCSS": "",
+"DNextIndicator": "res://addons/dialogic/Events/Text/node_next_indicator_icon.svg",
 "DemonEye": "",
+"DialogicAnimation": "",
+"DialogicBackgroundEvent": "",
+"DialogicCallNodeEvent": "",
+"DialogicCharacter": "",
+"DialogicCharacterEditorMainTab": "",
+"DialogicCharacterEditorPortraitSettingsTab": "",
+"DialogicCharacterEvent": "",
+"DialogicCharacterFormatLoader": "",
+"DialogicCharacterFormatSaver": "",
+"DialogicChoiceEvent": "",
+"DialogicCommentEvent": "",
+"DialogicConditionEvent": "",
+"DialogicDefaultPortrait": "",
+"DialogicEditor": "",
+"DialogicEndBranchEvent": "",
+"DialogicEndTimelineEvent": "",
+"DialogicEvent": "",
+"DialogicGlossary": "",
+"DialogicGlossaryEvent": "",
+"DialogicHistoryEvent": "",
+"DialogicIndexer": "",
+"DialogicJumpEvent": "",
+"DialogicLabelEvent": "",
+"DialogicMusicEvent": "",
+"DialogicNode_BackgroundHolder": "",
+"DialogicNode_ButtonSound": "",
+"DialogicNode_ChoiceButton": "",
+"DialogicNode_DialogText": "",
+"DialogicNode_InputHandler": "",
+"DialogicNode_MusicPlayer": "",
+"DialogicNode_NameLabel": "",
+"DialogicNode_PortraitHolder": "",
+"DialogicNode_PortraitPosition": "",
+"DialogicNode_SoundPlayer": "",
+"DialogicNode_Style": "",
+"DialogicNode_TextInput": "",
+"DialogicNode_TypeSounds": "",
+"DialogicNode_VoicePlayer": "",
+"DialogicPositionEvent": "",
+"DialogicSaveEvent": "",
+"DialogicSignalEvent": "",
+"DialogicSoundEvent": "",
+"DialogicStyleEvent": "",
+"DialogicSubsystem": "",
+"DialogicTextEvent": "",
+"DialogicTextInputEvent": "",
+"DialogicTimeline": "",
+"DialogicTimelineFormatLoader": "",
+"DialogicTimelineFormatSaver": "",
+"DialogicUtil": "",
+"DialogicVariableEvent": "",
+"DialogicVoiceEvent": "",
+"DialogicWaitEvent": "",
 "Enemy": "",
 "Ground": "",
 "GroundType": "",
@@ -102,6 +438,38 @@ config/icon="res://icon.svg"
 GameSaver="*res://share/game_saver.gd"
 Transition="*res://gui/transition.tscn"
 Slowmo="*res://share/effects/slowmo.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
+
+[dialogic]
+
+editor/character_preview_mode=0
+editor/current_editor=&"Settings"
+editor/current_resources={
+"Character Editor": "res://characters/jin/jin.dch",
+"Timeline Editor": "res://characters/dialogue/welcome.dtl"
+}
+editor/last_resources=["res://characters/jin/jin.dch", "res://characters/cheese_puffs/cheese_puffs.dch", "res://characters/player/sam.dch"]
+animations/join_default_length=0.5
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/join_default_wait=true
+choices/autofocus_first=true
+choices/delay=0.2
+glossary/default_case_sensitive=true
+history/history_system=true
+history/full_history=true
+history/text_history=true
+save/autosave_delay=60.0
+text/speed=0.01
+text/skippable=true
+text/autocontinue_delay=1.0
+variables={
+"current_speaker": "sam"
+}
+editor/current_timeline_path="res://characters/dialogue/welcome.dtl"
+editor/timeline_editor_mode=0
+text/autocolor_names=true
 
 [display]
 
@@ -113,7 +481,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 [importer_defaults]
 
@@ -197,6 +565,15 @@ execute={
 help={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"unicode":0,"echo":false,"script":null)
+]
+}
+dialogic_default_action={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 

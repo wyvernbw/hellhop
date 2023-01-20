@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://brgb6wvbslpk1"]
+[gd_scene load_steps=16 format=3 uid="uid://brgb6wvbslpk1"]
 
+[ext_resource type="Script" path="res://world/lobby/lobby.gd" id="1_1kxwu"]
 [ext_resource type="PackedScene" uid="uid://cgixtatwkdsb4" path="res://share/default_env.tscn" id="1_3jri8"]
 [ext_resource type="Material" uid="uid://dfdldt76m3smn" path="res://world/ground_1.tres" id="2_c5a81"]
 [ext_resource type="PackedScene" uid="uid://cegeep1t2f880" path="res://characters/jin/jin.tscn" id="3_lhq13"]
 [ext_resource type="PackedScene" uid="uid://k8a17ntjr1vb" path="res://characters/cheese_puffs/cheese_puffs.tscn" id="4_h513q"]
 [ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="5_0imh5"]
 [ext_resource type="PackedScene" uid="uid://dei7b1l6h2c11" path="res://share/effects/light_mesh.tscn" id="6_epmrp"]
+[ext_resource type="PackedScene" uid="uid://4pr6bc3t64vo" path="res://gui/dialogue/gui_dialogue.tscn" id="8_jo3bd"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ro0uc"]
 size = Vector2(1000, 1000)
@@ -47,6 +49,7 @@ albedo_color = Color(1, 0.415686, 0.443137, 0.14902)
 proximity_fade_distance = 134.57
 
 [node name="Lobby" type="Node3D"]
+script = ExtResource("1_1kxwu")
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_3jri8")]
 
@@ -114,5 +117,7 @@ modulate = Color(1, 0.133333, 0, 0.176471)
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
 fov = 110.0
+
+[node name="GUIDialogue" parent="." instance=ExtResource("8_jo3bd")]
 
 [editable path="CPUParticles3D/LightMesh"]
