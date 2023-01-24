@@ -6,6 +6,7 @@
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
+offset_bottom = 2776.0
 grow_horizontal = 1
 grow_vertical = 1
 size_flags_horizontal = 4
@@ -17,3 +18,6 @@ text = "q / e - side dash
 press space near a zipline to zip
 "
 autowrap_mode = 2
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "RESET"

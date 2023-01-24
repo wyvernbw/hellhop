@@ -33,7 +33,7 @@ const Frictions = {
 @onready var wall_detectors = $WallDetectors
 @onready var _head_anim = $Head/AnimationPlayer
 @onready var _ground_particles = $'%GroundParticles'
-@onready var _screen_shake = $'%ScreenShake'
+# @onready var _screen_shake = $'%ScreenShake'
 @onready var _coyote_time = $CoyoteTime
 @onready var _wall_coyote_time = $WallCoyoteTime
 @onready var _wind_mesh = $'%WindMesh'
@@ -45,6 +45,7 @@ const Frictions = {
 @onready var _collision_shape = $CollisionShape3D
 @onready var _zipline_attach = $'ZiplineAttachPoint'
 @onready var _zipline_player_point = $'ZiplineAttachPoint/PlayerPoint'
+@onready var sounds = {}
 
 class MovementState extends Wisp.State:
 	var forwards_input: float
@@ -156,6 +157,7 @@ class Sliding extends MovementState:
 		crouch_anim(owner)
 		if not owner.on_floor:
 			await owner.landed
+		owner.sounds.slide.play()
 		owner.slide_boost()
 		return self
 	func exit(owner) -> void:
@@ -167,6 +169,8 @@ class Sliding extends MovementState:
 		move(owner, delta)
 		if owner.on_floor and not particles_visible:
 			owner.toggle_ground_particles(true)
+		if not owner.on_floor:
+			owner.toggle_ground_particles(false)
 		if to_idle():
 			return IdleCrouch.new()
 		return self
@@ -300,6 +304,9 @@ class SideDash extends MovementState:
 	const SIDE_DASH_TIME = 0.1
 	var direction: Vector3
 	var dash_time: Timer
+	var old_velocity: Vector3
+	var on_dash_end: Callable = func():
+		transition.emit(MovingState.new())
 	func _init(dir: Vector3):
 		direction = dir.normalized()
 		name = "side dash"
@@ -307,26 +314,24 @@ class SideDash extends MovementState:
 		dash_time.one_shot = true
 		dash_time.wait_time = SIDE_DASH_TIME
 	func enter(owner) -> Wisp.State:
-		dash_time.timeout.connect(on_dash_time_end.bind(owner, owner.velocity))
 		owner.add_child(dash_time)
 		var impulse = owner.transform.basis.x * owner.SIDE_DASH_VELOCITY * direction.x	
-		owner.velocity.x = impulse.x
+		old_velocity = owner.velocity
+		owner.velocity = impulse
 		owner.velocity.y = 0.0
+		dash_time.timeout.connect(on_dash_end)
 		dash_time.start()
 		return self
-	func wisp_physics_process(owner: Node, delta: float) -> Wisp.State:
+	func wisp_physics_process(owner: Node, _delta: float) -> Wisp.State:
 		var ray: Maybe = owner.get_wall_raycast()
 		if ray.is_some():
 			return WallRunning.new(ray.unwrap())
 		return self
-	func on_dash_time_end(owner: Node, old_velocity: Vector3):
+	func exit(owner: Node) -> void:
+		dash_time.timeout.disconnect(on_dash_end)
+		dash_time.queue_free()
 		owner.velocity = old_velocity.length() * -owner.transform.basis.z
 		owner.velocity.y = 0.0
-		owner._side_dash_cooldown.start()
-		transition.emit(MovingState.new())
-	func exit(owner: Node) -> void:
-		dash_time.timeout.disconnect(on_dash_time_end.bind(owner, owner.velocity))
-		dash_time.queue_free()
 
 class ZiplineRiding extends MovementState:
 	var zipline
@@ -342,11 +347,13 @@ class ZiplineRiding extends MovementState:
 			zipline.path.to_local(owner.position)
 		).distance_to(points[0])
 		owner.katana_anim.travel("zip")
+		owner._head_anim.play("zip")
 		return self
 	func exit(owner: Node) -> void:
 		zipline.remote_transform.remote_path = ""
 		owner._collision_shape.disabled = false
 		owner.katana_anim.travel("idle")
+		owner._head_anim.play("unzip")
 	func wisp_physics_process(owner: Node, delta: float) -> Wisp.State:
 		zipline.follow.progress += owner.ZIPLINE_ACCEL * delta
 		print_debug(zipline.follow.progress_ratio)
@@ -387,6 +394,7 @@ class Execute extends CombatState:
 			owner.katana_anim.travel("execute_end")
 			owner._katana.finished.connect(func():
 				owner.execute.emit()
+				owner.sounds.execute.play()
 				for connection in owner._katana.finished.get_connections():
 					owner._katana.finished.disconnect(connection.callable)
 			)
@@ -402,6 +410,7 @@ class Slash extends CombatState:
 		animation = slashes[current_slash]
 		name = animation
 	func enter(owner: Node) -> Wisp.State:
+		owner.sounds.slash.play()
 		owner.katana_anim.travel(animation)
 		owner._katana.finished.connect(slash_finished)
 		if owner._katana_cast.is_colliding():
@@ -452,6 +461,11 @@ func _ready():
 		if not node:
 			continue
 		execute.connect(node.on_execute)
+	for node in $Sounds.get_children():
+		sounds[node.name] = node
+	Settings.sens_changed.connect(func(sens: float):
+		mouse_sensitivity = sens
+	)
 
 func _process(delta):
 	if not is_inside_tree():
@@ -484,7 +498,6 @@ func _physics_process(delta):
 		if ground is Ground:
 			for particles in _ground_particles.get_children():
 				particles.material_override.albedo_color = ground.ground_type.ground_color
-	_screen_shake.amplitude = 0.005 * current_speed
 	_wind_mesh.material_override.set_shader_parameter("threshold", 30.0 / current_speed)
 	# _screen_shake._freq.wait_time = 0.5 / float(boost_count) 
 	if not end_reached:
@@ -505,10 +518,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not end_reached:
 		move_sm.input(event)
 		combat_sm.input(event)
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		_head.rotate_x(-event.relative.y * mouse_sensitivity)
-		_head.rotation.x = clamp(_head.rotation.x, deg_to_rad(-MAX_ANGLE), deg_to_rad(MAX_ANGLE))
+	if not move_sm.current_state is ZiplineRiding:
+		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			rotate_y(-event.relative.x * mouse_sensitivity)
+			_head.rotate_x(-event.relative.y * mouse_sensitivity)
+			_head.rotation.x = clamp(_head.rotation.x, deg_to_rad(-MAX_ANGLE), deg_to_rad(MAX_ANGLE))
 	if event.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
 

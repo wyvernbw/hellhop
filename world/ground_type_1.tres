@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ooxhksyrmar8"]
+
+[ext_resource type="Script" path="res://world/ground_type.gd" id="1_0bdrw"]
+
+[resource]
+script = ExtResource("1_0bdrw")
+ground_color = Color(0.392157, 0.211765, 0.294118, 1)
+ground_hit_color = Color(0.392157, 0.211765, 0.294118, 1)

@@ -17,4 +17,21 @@ jin: I got revenge on the shogun who killed my clan. An eye for an eye.
 cheese_puffs: I ate my roommate's pudding even though I knew it was his.
 jin: Despicable.
 cheese_puffs: I SAID SORRY OK?
-[end_timeline]
+jin: Oh well, you should get comfortable Sam. You'll be here for a long time. Forever to be exact, hehe.
+[wait time="5.0"]
+sam: This sucks. I'm bored outta my mind. I'm getting out of here.
+cheese_puffs: Wait! They all say that. Then they try to get out, die and end up in double hell. That place's a real dump.
+jin: He's right. You won't make it.
+cheese_puffs: I heard they don't even have toilet paper. man...
+sam: I don't care. I don't even know why I'm here. No way in hell I'm staying here forever.
+jin: Ok ok, here, have this. You won't make it without it.
+[signal arg="katana_passed"]
+[wait time="0.8"]
+sam: What's this?
+jin: It's just an old something of mine. It's magic. It can help you get out.
+cheese_puffs: Where did you even get that?!
+jin: What do you care, pudding thief.
+sam: Thank you. I am grateful for everything.
+jin: See you later.
+cheese_puffs: Later.
+[signal arg="welcome_finished"]

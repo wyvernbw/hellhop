@@ -5,4 +5,6 @@
 [resource]
 default_font = ExtResource("1_xgqwj")
 default_font_size = 0
+HSlider/styles/grabber_area = null
+HSlider/styles/grabber_area_highlight = null
 Label/fonts/font = ExtResource("1_xgqwj")

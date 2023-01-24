@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://brgb6wvbslpk1"]
+[gd_scene load_steps=21 format=3 uid="uid://brgb6wvbslpk1"]
 
 [ext_resource type="Script" path="res://world/lobby/lobby.gd" id="1_1kxwu"]
 [ext_resource type="PackedScene" uid="uid://cgixtatwkdsb4" path="res://share/default_env.tscn" id="1_3jri8"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cegeep1t2f880" path="res://characters/jin/jin.tscn" id="3_lhq13"]
 [ext_resource type="PackedScene" uid="uid://k8a17ntjr1vb" path="res://characters/cheese_puffs/cheese_puffs.tscn" id="4_h513q"]
 [ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="5_0imh5"]
+[ext_resource type="PackedScene" uid="uid://cr2byro0mrn0y" path="res://characters/player/katana/katana_colored.tscn" id="5_1gmwn"]
 [ext_resource type="PackedScene" uid="uid://dei7b1l6h2c11" path="res://share/effects/light_mesh.tscn" id="6_epmrp"]
 [ext_resource type="PackedScene" uid="uid://4pr6bc3t64vo" path="res://gui/dialogue/gui_dialogue.tscn" id="8_jo3bd"]
+[ext_resource type="PackedScene" uid="uid://c0ax77o04tg27" path="res://gui/pause_menu/pause_menu.tscn" id="10_c2c88"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ro0uc"]
 size = Vector2(1000, 1000)
@@ -15,6 +17,91 @@ size = Vector2(1000, 1000)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kf3xk"]
 shading_mode = 0
 albedo_color = Color(0.247059, 0.168627, 0.156863, 1)
+
+[sub_resource type="Animation" id="Animation_wknel"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaColored:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.23205, 3, -1.59809)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KatanaColored:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.09439, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KatanaColored:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_flnmn"]
+resource_name = "pass_katana"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatanaColored:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(3.23205, 3, -1.59809), Vector3(1.76795, 5, -7.06219), Vector3(-0.330124, 3, -9.42822)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KatanaColored:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.09439, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KatanaColored:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44bqq"]
+_data = {
+"RESET": SubResource("Animation_wknel"),
+"pass_katana": SubResource("Animation_flnmn")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uddxv"]
 transparency = 1
@@ -89,8 +176,17 @@ transform = Transform3D(0.707107, -0.707107, 8.9407e-08, 0.707107, 0.707107, 4.1
 size = Vector3(4, 1, 1)
 material = SubResource("StandardMaterial3D_kf3xk")
 
-[node name="oldman" parent="." instance=ExtResource("3_lhq13")]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 6, 0, 0)
+[node name="Jin" parent="." instance=ExtResource("3_lhq13")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 6, 0, 0)
+
+[node name="KatanaColored" parent="Jin" instance=ExtResource("5_1gmwn")]
+transform = Transform3D(-0.173168, 0, 0.29994, 0, 0.5, 0, -0.29994, 0, -0.173168, 3.23205, 3, -1.59809)
+visible = false
+
+[node name="Anim" type="AnimationPlayer" parent="Jin"]
+libraries = {
+"": SubResource("AnimationLibrary_44bqq")
+}
 
 [node name="CheesePuffs" parent="." instance=ExtResource("4_h513q")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5, 0, 0)
@@ -119,5 +215,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
 fov = 110.0
 
 [node name="GUIDialogue" parent="." instance=ExtResource("8_jo3bd")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("10_c2c88")]
 
 [editable path="CPUParticles3D/LightMesh"]

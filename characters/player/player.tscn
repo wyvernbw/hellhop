@@ -1,15 +1,18 @@
-[gd_scene load_steps=38 format=3 uid="uid://dgkptfe55p6oq"]
+[gd_scene load_steps=44 format=3 uid="uid://dgkptfe55p6oq"]
 
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_js1hu"]
 [ext_resource type="Texture2D" uid="uid://cshh1wdqdft66" path="res://share/effects/frame.png" id="2_h5tyt"]
 [ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_h6wsm"]
-[ext_resource type="PackedScene" uid="uid://b3yk22dbgx4jl" path="res://characters/player/screen_shake.tscn" id="2_lq0ca"]
 [ext_resource type="PackedScene" uid="uid://dfrt3nqfiu5hk" path="res://share/effects/wind_mesh.tscn" id="3_4fdej"]
 [ext_resource type="Shader" path="res://share/effects/wind.gdshader" id="4_adynf"]
 [ext_resource type="Texture2D" uid="uid://na7u6fs21j75" path="res://share/effects/cursor.png" id="5_g36a7"]
 [ext_resource type="PackedScene" uid="uid://6cahsfs20upy" path="res://characters/player/katana/katana.tscn" id="6_nrgi8"]
 [ext_resource type="PackedScene" uid="uid://dgukm0kqjet4v" path="res://gui/clear_panel.tscn" id="7_nyruo"]
 [ext_resource type="Theme" uid="uid://bdm7j71m6my6r" path="res://gui/ui_theme.tres" id="8_6440i"]
+[ext_resource type="PackedScene" uid="uid://cgixtatwkdsb4" path="res://share/default_env.tscn" id="10_stmxs"]
+[ext_resource type="AudioStream" uid="uid://dqor6daacbmso" path="res://share/sounds/execute.wav" id="11_gm426"]
+[ext_resource type="AudioStream" uid="uid://cd61j65d70ggk" path="res://share/sounds/slash.wav" id="12_vstsa"]
+[ext_resource type="AudioStream" uid="uid://7eru8a8iamjx" path="res://share/sounds/slide.wav" id="13_rv0iu"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ws8rd"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
@@ -40,6 +43,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 1.25, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [110.0]
+}
 
 [sub_resource type="Animation" id="Animation_6mgnx"]
 resource_name = "crouch"
@@ -55,6 +70,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Vector3(0, 1.25, 0), Vector3(0, -0.75, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [110.0, 130.0]
 }
 
 [sub_resource type="Animation" id="Animation_tbwdd"]
@@ -120,6 +147,50 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, -0.75, 0), Vector3(0, 1.25, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [110.0]
+}
+
+[sub_resource type="Animation" id="Animation_iaxb8"]
+resource_name = "zip"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [110.0, 140.0]
+}
+
+[sub_resource type="Animation" id="Animation_t28a0"]
+resource_name = "unzip"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(0.5),
+"update": 2,
+"values": [110.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k3cqx"]
 _data = {
@@ -128,7 +199,9 @@ _data = {
 "go_back": SubResource("Animation_tbwdd"),
 "lean_left": SubResource("Animation_m1tnk"),
 "lean_right": SubResource("Animation_s0hor"),
-"stand_up": SubResource("Animation_v5edw")
+"stand_up": SubResource("Animation_v5edw"),
+"unzip": SubResource("Animation_t28a0"),
+"zip": SubResource("Animation_iaxb8")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hegt8"]
@@ -152,7 +225,7 @@ cellular_return_type = 6
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6hjor"]
 noise = SubResource("FastNoiseLite_eygrp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvj1w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooiw6"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_adynf")
@@ -162,6 +235,15 @@ shader_parameter/speed = 0.05
 shader_parameter/tex = SubResource("NoiseTexture2D_6hjor")
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_dfqw8"]
+
+[sub_resource type="Environment" id="Environment_1d80k"]
+background_mode = 3
+background_color = Color(0.164706, 0.117647, 0.137255, 1)
+background_canvas_max_layer = 4
+ambient_light_color = Color(0.164706, 0.117647, 0.137255, 1)
+tonemap_mode = 2
+fog_light_color = Color(0.164706, 0.117647, 0.137255, 1)
+fog_density = 0.0267
 
 [sub_resource type="SphereMesh" id="SphereMesh_getxm"]
 
@@ -248,9 +330,6 @@ libraries = {
 "": SubResource("AnimationLibrary_k3cqx")
 }
 
-[node name="ScreenShake" parent="Head" instance=ExtResource("2_lq0ca")]
-unique_name_in_owner = true
-
 [node name="GroundParticles" type="Node3D" parent="Head"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.337677, -1.42072)
@@ -296,7 +375,7 @@ size = 10.0
 [node name="WindMesh" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("3_4fdej")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.02457)
-material_override = SubResource("ShaderMaterial_mvj1w")
+material_override = SubResource("ShaderMaterial_ooiw6")
 skeleton = NodePath("../../..")
 
 [node name="Katana" parent="Head/SpringArm3D/Camera3D" instance=ExtResource("6_nrgi8")]
@@ -314,7 +393,7 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dfqw8")
 
 [node name="KatanaCast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
-target_position = Vector3(0, -1, -100)
+target_position = Vector3(0, -1, -1000)
 collision_mask = 6
 hit_from_inside = true
 
@@ -382,6 +461,9 @@ texture = ExtResource("2_h5tyt")
 texture_filter = 1
 position = Vector2(256, 128)
 texture = ExtResource("5_g36a7")
+
+[node name="WorldEnvironment" parent="CanvasLayer" instance=ExtResource("10_stmxs")]
+environment = SubResource("Environment_1d80k")
 
 [node name="WallDetectors" type="Node3D" parent="."]
 
@@ -454,6 +536,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="PlayerPoint" type="Marker3D" parent="ZiplineAttachPoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="execute" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_gm426")
+bus = &"SFX"
+
+[node name="slash" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("12_vstsa")
+bus = &"SFX"
+
+[node name="slide" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("13_rv0iu")
+volume_db = -8.0
+bus = &"SFX"
 
 [editable path="Head/SpringArm3D/Camera3D/Katana"]
 [editable path="Head/SpringArm3D/Camera3D/Katana/KatanaColored"]

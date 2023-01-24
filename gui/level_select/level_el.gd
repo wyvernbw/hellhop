@@ -1,5 +1,7 @@
 extends TransitionButton
 
+const LevelPaths = GameSaver.LevelPaths
+
 @onready var badges = {
 	Times.Badge.BRONZE: $'%Bronze',
 	Times.Badge.SILVER: $'%Silver',
@@ -8,22 +10,39 @@ extends TransitionButton
 	Times.Badge.SPEED_DEMON: $'%SpeedDemon',
 }
 
-@export var level_name: String
+@export var level_name: GameSaver.Levels
 
 func _ready():
-	scene_path = "res://world/levels/%s.tscn" % level_name
+	scene_path = LevelPaths[level_name]
 	initialize()
 	for badge in badges.values():
 		badge.hide()
-	var data = GameSaver.load_save()
-	if not level_name in data:
+	show_stats()
+
+func show_stats():
+	var unlocked = await GameSaver.get_level_unlocked(level_name)
+	match unlocked.unpack():
+		Maybe.NONE:
+			modulate.a = 0.5
+			disabled = true
+			return
+		[Maybe.SOME, var value]:
+			if not value:
+				modulate.a = 0.5
+				disabled = true
+				return
+
+	var completed = await GameSaver.get_level_completed(level_name)
+	if completed.is_none():
 		return
-	var level_data = data[level_name]
-	print_debug("level_data: %s" % level_data)
-	$'%Time'.text = "%.3f" % level_data.time
-	if not level_data.badge == Times.Badge.NA:
-		badges[level_data.badge].show()
-	if level_data.speed_demon:
+
+	var stats = await GameSaver.get_level_stats(level_name)
+	if stats.is_none():
+		return
+
+	stats = stats.unwrap()
+	$'%Time'.text = "%.3f" % stats.time
+	if not stats.badge == Times.Badge.NA:
+		badges[stats.badge].show()
+	if stats.speed_demon:
 		badges[Times.Badge.SPEED_DEMON].show()
-
-

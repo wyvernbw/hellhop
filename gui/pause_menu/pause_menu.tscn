@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ax77o04tg27"]
+
+[ext_resource type="Script" path="res://gui/pause_menu/pause_menu.gd" id="1_i44ab"]
+[ext_resource type="Theme" uid="uid://bdm7j71m6my6r" path="res://gui/ui_theme.tres" id="2_hyo2a"]
+[ext_resource type="Script" path="res://gui/transition_button.gd" id="3_ltfd1"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_i44ab")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.375
+anchor_top = 0.125
+anchor_right = 0.625
+anchor_bottom = 0.875
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_hyo2a")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="TransitionButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to level select"
+script = ExtResource("3_ltfd1")
+scene_path = "res://gui/level_select/level_select.tscn"
+
+[node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit Game"

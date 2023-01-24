@@ -31,7 +31,6 @@ curve = SubResource("Curve3D_aiur1")
 [node name="PathFollow3D" type="PathFollow3D" parent="Line/Path3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 2.74832, 6.84602, -6.35781)
-rotation_mode = 1
 loop = false
 
 [node name="RT" type="RemoteTransform3D" parent="Line/Path3D/PathFollow3D"]

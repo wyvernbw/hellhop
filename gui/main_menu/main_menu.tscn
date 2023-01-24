@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://ce64y52yq5vs7"]
+[gd_scene load_steps=16 format=3 uid="uid://ce64y52yq5vs7"]
 
 [ext_resource type="FontFile" uid="uid://3uo8vp45m3e5" path="res://gui/fonts/Quicksand-Bold.otf" id="1_ch2d3"]
 [ext_resource type="FontFile" uid="uid://bjb4dq7pfserg" path="res://gui/fonts/Kihim-Regular.otf" id="1_s55oc"]
+[ext_resource type="Script" path="res://gui/main_menu/main_menu.gd" id="2_a3i5h"]
 [ext_resource type="Texture2D" uid="uid://cghxt5kbof6rg" path="res://share/effects/diamond_particle.png" id="2_iscl7"]
 [ext_resource type="Texture2D" uid="uid://cshh1wdqdft66" path="res://share/effects/frame.png" id="4_udxek"]
 [ext_resource type="Script" path="res://gui/transition_button.gd" id="4_vd27u"]
@@ -46,6 +47,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_wnr8l")
+script = ExtResource("2_a3i5h")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -86,15 +88,24 @@ theme_override_fonts/font = ExtResource("1_s55oc")
 text = "HELLHOP"
 label_settings = SubResource("LabelSettings_fygbs")
 
-[node name="Play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="StoryMode" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "play"
+text = "Play
+"
 alignment = 0
+script = ExtResource("4_vd27u")
+scene_path = "res://world/lobby/lobby.tscn"
+
+[node name="TransitionButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Level Select"
 script = ExtResource("4_vd27u")
 scene_path = "res://gui/level_select/level_select.tscn"
 
 [node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Settings"

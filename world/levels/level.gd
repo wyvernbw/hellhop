@@ -3,7 +3,7 @@ extends Node3D
 
 signal started
 
-@export var level_name: String
+@export var level_name: GameSaver.Levels
 @export var player_path: NodePath
 @export var times: Times
 
@@ -31,6 +31,8 @@ class LevelResult extends Node:
 		}
 
 func _ready():
+	var pause_menu = Pause.Scene.instantiate()
+	add_child(pause_menu)
 	clear_menu.hide()
 	for end in get_tree().get_nodes_in_group("end_of_level"):
 		end.body_entered.connect(end_reached)
@@ -58,12 +60,15 @@ func end_reached(_body: Node):
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	clear_menu.show()
 	clear_menu.appear(res)
-	var save = GameSaver.load_save()
-	if level_name in save:
-		var level_data = save[level_name]
-		if level_data.time > level_time:
-			level_data = res.serialize()
-		level_data.speed_demon = level_data.speed_demon or res.speed_demon
-		GameSaver.save_game({level_name: level_data})
-	else:
-		GameSaver.save_game({level_name: res.serialize()})
+	clear_menu.left.connect(Bgm.stop)
+	var level_stats = await GameSaver.get_level_stats(level_name)
+	match level_stats.unpack():
+		Maybe.NONE:
+			GameSaver.save_level_data(level_name, res.serialize())\
+				.mark_as_completed(level_name)\
+				.mark_as_unlocked(await GameSaver.get_next_level(level_name))
+		[Maybe.SOME, var stats]:
+			if stats.time > level_time:
+				stats.merge(res.serialize(), true)
+			stats.speed_demon = stats.speed_demon or res.speed_demon
+			GameSaver.save_level_data(level_name, stats)

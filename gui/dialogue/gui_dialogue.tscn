@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://4pr6bc3t64vo"]
+[gd_scene load_steps=10 format=3 uid="uid://4pr6bc3t64vo"]
 
 [ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_name_label.gd" id="1_t8kd6"]
 [ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_dialog_text.gd" id="2_ohmjo"]
 [ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_next_indicator.gd" id="3_jupj0"]
 [ext_resource type="FontFile" uid="uid://3uo8vp45m3e5" path="res://gui/fonts/Quicksand-Bold.otf" id="3_ns16q"]
 [ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_input_handler.gd" id="4_q2s5f"]
+[ext_resource type="Script" path="res://addons/dialogic/Events/Style/node_style.gd" id="4_tr24q"]
 [ext_resource type="Script" path="res://addons/dialogic/Events/Text/node_type_sound.gd" id="5_2js1c"]
 
 [sub_resource type="Theme" id="Theme_amu8d"]
@@ -34,6 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_amu8d")
+script = ExtResource("4_tr24q")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextBox" type="MarginContainer" parent="Theme"]
@@ -51,9 +53,11 @@ theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Theme/TextBox"]
+clip_contents = true
 layout_mode = 2
 
 [node name="VBox" type="VBoxContainer" parent="Theme/TextBox/HBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -63,11 +67,13 @@ text = "some guy"
 script = ExtResource("1_t8kd6")
 
 [node name="PanelContainer" type="PanelContainer" parent="Theme/TextBox/HBoxContainer/VBox"]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_b8ylm")
 
 [node name="MarginContainer" type="MarginContainer" parent="Theme/TextBox/HBoxContainer/VBox/PanelContainer"]
+clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 4
@@ -78,7 +84,7 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "ayoo
+text = "ayooo
 "
 script = ExtResource("2_ohmjo")
 

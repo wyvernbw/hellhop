@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dox68dp0hkt65"]
+
+[ext_resource type="Script" path="res://gui/settings/slider.gd" id="1_mwjm3"]
+
+[node name="Slider" type="HBoxContainer"]
+theme_override_constants/separation = 8
+alignment = 1
+script = ExtResource("1_mwjm3")
+
+[node name="HSlider" type="HSlider" parent="."]
+modulate = Color(15.3804, 13.6118, 14.2, 0.372549)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 50.0
+rounded = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.15
+text = "0.5"
+horizontal_alignment = 2
+vertical_alignment = 3

@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=3 uid="uid://cngc74x45pddm"]
+
+[ext_resource type="Shader" path="res://gui/settings/settings.gdshader" id="2_w5ig8"]
+[ext_resource type="Script" path="res://gui/settings/settings.gd" id="2_wa2yd"]
+[ext_resource type="PackedScene" uid="uid://dox68dp0hkt65" path="res://gui/settings/slider.tscn" id="2_xc6vk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jy1jq"]
+shader = ExtResource("2_w5ig8")
+shader_parameter/color = Color(1, 1, 1, 0.231373)
+shader_parameter/tint_amount = 0.1
+shader_parameter/blur_amount = 10.0
+
+[node name="Settings" type="CanvasLayer"]
+layer = 5
+script = ExtResource("2_wa2yd")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_jy1jq")
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mouse sensitivity: "
+
+[node name="SensSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_xc6vk")]
+unique_name_in_owner = true
+layout_mode = 2
+mod = 0.1
+
+[node name="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SensSlider" index="0"]
+max_value = 200.0
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SFX volume:"
+
+[node name="SFXSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_xc6vk")]
+unique_name_in_owner = true
+layout_mode = 2
+mod = 0.01
+
+[node name="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SFXSlider" index="0"]
+value = 100.0
+
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "BGM volume:"
+
+[node name="BGMSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_xc6vk")]
+unique_name_in_owner = true
+layout_mode = 2
+mod = 0.01
+
+[node name="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/BGMSlider" index="0"]
+value = 100.0
+
+[node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "back"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_top = 41.0
+offset_right = 256.0
+offset_bottom = 41.0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[editable path="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SensSlider"]
+[editable path="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/SFXSlider"]
+[editable path="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/BGMSlider"]

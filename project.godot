@@ -314,10 +314,25 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://world/levels/level.gd"
 }, {
+"base": "Node3D",
+"class": &"Lobby",
+"language": &"GDScript",
+"path": "res://world/lobby/lobby.gd"
+}, {
 "base": "Node",
 "class": &"Maybe",
 "language": &"GDScript",
 "path": "res://share/maybe/maybe.gd"
+}, {
+"base": "HBoxContainer",
+"class": &"MySlider",
+"language": &"GDScript",
+"path": "res://gui/settings/slider.gd"
+}, {
+"base": "CanvasLayer",
+"class": &"Pause",
+"language": &"GDScript",
+"path": "res://gui/pause_menu/pause_menu.gd"
 }, {
 "base": "CharacterBody3D",
 "class": &"Player",
@@ -416,7 +431,10 @@ _global_script_class_icons={
 "Ground": "",
 "GroundType": "",
 "Level": "",
+"Lobby": "",
 "Maybe": "",
+"MySlider": "",
+"Pause": "",
 "Player": "",
 "Result": "",
 "Times": "",
@@ -438,18 +456,19 @@ config/icon="res://icon.svg"
 GameSaver="*res://share/game_saver.gd"
 Transition="*res://gui/transition.tscn"
 Slowmo="*res://share/effects/slowmo.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
+Bgm="*res://share/sounds/bgm.tscn"
+Settings="*res://gui/settings/settings.tscn"
 
 [dialogic]
 
 editor/character_preview_mode=0
-editor/current_editor=&"Settings"
+editor/current_editor=&"Timeline Editor"
 editor/current_resources={
 "Character Editor": "res://characters/jin/jin.dch",
-"Timeline Editor": "res://characters/dialogue/welcome.dtl"
+"Timeline Editor": "res://characters/dialogue/ex.dtl"
 }
-editor/last_resources=["res://characters/jin/jin.dch", "res://characters/cheese_puffs/cheese_puffs.dch", "res://characters/player/sam.dch"]
+editor/last_resources=["res://characters/dialogue/ex.dtl", "res://characters/dialogue/food.dtl", "res://characters/cheese_puffs/cheese_puffs.dch", "res://characters/dialogue/speed.dtl", "res://characters/jin/jin.dch", "res://characters/dialogue/welcome.dtl", "res://characters/player/sam.dch"]
 animations/join_default_length=0.5
 animations/leave_default_length=0.5
 animations/leave_default_wait=true
@@ -467,7 +486,7 @@ text/autocontinue_delay=1.0
 variables={
 "current_speaker": "sam"
 }
-editor/current_timeline_path="res://characters/dialogue/welcome.dtl"
+editor/current_timeline_path="res://characters/dialogue/ex.dtl"
 editor/timeline_editor_mode=0
 text/autocolor_names=true
 
@@ -576,6 +595,11 @@ dialogic_default_action={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"unicode":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -592,6 +616,7 @@ common/physics_ticks_per_second=200
 
 occlusion_culling/bvh_build_quality=1
 driver/threads/thread_model=0
+driver/depth_prepass/enable=false
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=1
 textures/decals/filter=2

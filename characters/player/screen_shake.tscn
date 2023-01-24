@@ -7,7 +7,7 @@ script = ExtResource("1_dl0v4")
 amplitude = 0.5
 
 [node name="Frequency" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.025
 autostart = true
 
 [connection signal="timeout" from="Frequency" to="." method="_on_frequency_timeout"]

@@ -1,5 +1,7 @@
 extends PanelContainer
 
+signal left
+
 const ranks = {
 	Times.Badge.BRONZE: preload("res://gui/bronze_rank.tscn"),
 	Times.Badge.SILVER: preload("res://gui/silver_rank.tscn"),
@@ -11,6 +13,9 @@ const ranks = {
 @onready var rank_list = $'%Ranks'
 @onready var time_value = $'%TimeValue'
 @onready var time_fade_in = $'%TimeFadeIn'
+
+func _ready():
+	$'%Next'.pressed.connect(Bgm.stop)
 
 func appear(results: Level.LevelResult) -> void:
 	await get_tree().create_timer(0.2).timeout

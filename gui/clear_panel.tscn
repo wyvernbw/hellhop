@@ -99,14 +99,18 @@ layout_mode = 2
 theme_override_constants/v_separation = 0
 
 [node name="Next" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "NEXT >"
+script = ExtResource("3_l6wje")
+scene_path = "res://world/lobby/lobby.tscn"
 
 [node name="Restart" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "RESTART"
 
 [node name="Menu" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "< MENU"
 script = ExtResource("3_l6wje")
