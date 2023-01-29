@@ -4,4 +4,5 @@ extends Control
 
 func _ready():
 	settings_button.pressed.connect(func(): Settings.show())
+	$'%Quit'.pressed.connect(func(): get_tree().quit())
 

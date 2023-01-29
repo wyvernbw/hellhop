@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ce64y52yq5vs7"]
+[gd_scene load_steps=17 format=3 uid="uid://ce64y52yq5vs7"]
 
 [ext_resource type="FontFile" uid="uid://3uo8vp45m3e5" path="res://gui/fonts/Quicksand-Bold.otf" id="1_ch2d3"]
 [ext_resource type="FontFile" uid="uid://bjb4dq7pfserg" path="res://gui/fonts/Kihim-Regular.otf" id="1_s55oc"]
@@ -21,8 +21,8 @@
 bg_color = Color(0.0941176, 0.0666667, 0.0980392, 1)
 
 [sub_resource type="Theme" id="Theme_wnr8l"]
-Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.772549)
-Button/colors/font_hover_color = Color(0.619608, 0.847059, 1, 0.839216)
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
+Button/colors/font_hover_color = Color(0.901961, 0.666667, 0.407843, 1)
 Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/fonts/font = ExtResource("1_ch2d3")
 Button/styles/disabled = SubResource("StyleBoxEmpty_8c66t")
@@ -31,6 +31,9 @@ Button/styles/hover = SubResource("StyleBoxEmpty_67c1g")
 Button/styles/normal = SubResource("StyleBoxEmpty_gpi4c")
 Button/styles/pressed = SubResource("StyleBoxEmpty_knctk")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_k3d2s")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jwj0"]
+bg_color = Color(0.164706, 0.117647, 0.137255, 1)
 
 [sub_resource type="Curve" id="Curve_2wy4n"]
 _data = [Vector2(0.630037, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0454545), -3.57382, 0.0, 0, 0]
@@ -53,6 +56,7 @@ script = ExtResource("2_a3i5h")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jwj0")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
@@ -75,7 +79,7 @@ gravity = Vector2(200, -300)
 scale_amount_min = 4.0
 scale_amount_max = 4.0
 scale_amount_curve = SubResource("Curve_2wy4n")
-color = Color(0.733333, 0.219608, 0.305882, 1)
+color = Color(0.909804, 0.541176, 0.211765, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 z_index = 2
@@ -111,6 +115,7 @@ size_flags_horizontal = 0
 text = "Settings"
 
 [node name="Quit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Quit"
@@ -118,6 +123,7 @@ text = "Quit"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 texture_filter = 1
 position = Vector2(256, 128)
 scale = Vector2(2, 2)

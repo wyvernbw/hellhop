@@ -3,6 +3,8 @@ extends Node3D
 
 signal started
 
+const PauseMenu = preload("res://gui/pause_menu/pause_menu.tscn")
+
 @export var level_name: GameSaver.Levels
 @export var player_path: NodePath
 @export var times: Times
@@ -31,7 +33,7 @@ class LevelResult extends Node:
 		}
 
 func _ready():
-	var pause_menu = Pause.Scene.instantiate()
+	var pause_menu = PauseMenu.instantiate()
 	add_child(pause_menu)
 	clear_menu.hide()
 	for end in get_tree().get_nodes_in_group("end_of_level"):

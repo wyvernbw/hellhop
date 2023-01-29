@@ -1,8 +1,6 @@
 extends CanvasLayer
 class_name Pause
 
-const Scene = preload("res://gui/pause_menu/pause_menu.tscn")
-
 func _ready():
 	hide()
 	$'%Resume'.pressed.connect(self.hide)

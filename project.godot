@@ -494,7 +494,8 @@ text/autocolor_names=true
 
 window/size/viewport_width=512
 window/size/viewport_height=256
-window/size/mode=3
+window/size/mode=4
+window/size/borderless=true
 window/vsync/vsync_mode=0
 window/stretch/mode="viewport"
 

@@ -38,9 +38,9 @@ func _ready():
 			"already_seen": [],
 		},
 		"settings": {
-			"bgm": 0.0,
-			"sfx": 0.0,
-			"sens": 0.01
+			"bgm": 100.0,
+			"sfx": 100.0,
+			"sens": 100.0
 		}
 	}, false)
 	init.emit()
