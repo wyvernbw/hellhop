@@ -6,5 +6,6 @@ A fast game about bhopping
 
 ```bash
 git clone git@github.com:wyvernbw/hellhop.git
+cd hellhop
 git submodule update --init
 ```
